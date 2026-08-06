@@ -29,13 +29,13 @@ export function HomeHero() {
 
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -right-32 top-24 h-96 w-96 rounded-full bg-[#63cd26]/25 blur-3xl"
+        className="pointer-events-none absolute -right-32 top-24 hidden h-96 w-96 rounded-full bg-[#63cd26]/25 blur-3xl sm:block"
         animate={{ y: [0, 20, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-[#18af8a]/25 blur-3xl"
+        className="pointer-events-none absolute -left-20 bottom-0 hidden h-72 w-72 rounded-full bg-[#18af8a]/25 blur-3xl sm:block"
         animate={{ y: [0, -16, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
