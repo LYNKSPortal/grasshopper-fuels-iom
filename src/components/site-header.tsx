@@ -41,7 +41,7 @@ function Logo() {
         width={300}
         height={80}
         priority
-        className="h-auto w-[300px] transition-transform group-hover:scale-105"
+        className="h-auto w-[200px] transition-transform group-hover:scale-105 sm:w-[300px]"
       />
     </Link>
   );
