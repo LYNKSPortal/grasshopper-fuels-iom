@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AtSign, Mail, MapPin, Phone, Share2 } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { mainNavLinks, productLinks, siteConfig } from "@/lib/site-config";
+import { FacebookIcon, WhatsAppIcon } from "@/components/icons";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -28,17 +29,35 @@ export function SiteFooter() {
             <div className="mt-6 flex gap-3">
               <a
                 href={siteConfig.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Grasshopper Fuels on Facebook"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-[#18af8a]"
               >
-                <Share2 className="h-4 w-4" />
+                <FacebookIcon className="h-4 w-4" />
               </a>
               <a
-                href={siteConfig.social.instagram}
-                aria-label="Grasshopper Fuels on Instagram"
+                href={siteConfig.contact.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Grasshopper Fuels on WhatsApp"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-[#18af8a]"
               >
-                <AtSign className="h-4 w-4" />
+                <WhatsAppIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={`tel:${siteConfig.contact.phonePlaceholder.replace(/\s+/g, "")}`}
+                aria-label="Call Grasshopper Fuels"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-[#18af8a]"
+              >
+                <Phone className="h-4 w-4" />
+              </a>
+              <a
+                href={`mailto:${siteConfig.contact.emailPlaceholder}`}
+                aria-label="Email Grasshopper Fuels"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-[#18af8a]"
+              >
+                <Mail className="h-4 w-4" />
               </a>
             </div>
           </div>
