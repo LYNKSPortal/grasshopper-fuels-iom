@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ContactForm } from "@/components/contact-form";
@@ -18,6 +18,12 @@ const contactDetails = [
     icon: Phone,
     label: "Phone",
     value: siteConfig.contact.phonePlaceholder,
+  },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: siteConfig.contact.whatsapp,
+    href: siteConfig.contact.whatsappLink,
   },
   {
     icon: Mail,
@@ -66,9 +72,20 @@ export default function ContactPage() {
                     <p className="text-xs font-bold uppercase tracking-wider text-[#202e25]/45">
                       {detail.label}
                     </p>
-                    <p className="mt-0.5 text-sm font-medium text-[#202e25]">
-                      {detail.value}
-                    </p>
+                    {detail.href ? (
+                      <a
+                        href={detail.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-0.5 text-sm font-medium text-[#202e25] hover:text-[#18af8a]"
+                      >
+                        {detail.value}
+                      </a>
+                    ) : (
+                      <p className="mt-0.5 text-sm font-medium text-[#202e25]">
+                        {detail.value}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}

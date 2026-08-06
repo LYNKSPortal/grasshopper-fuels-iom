@@ -13,13 +13,16 @@ export const siteConfig = {
     "solid fuel supplier",
   ],
   contact: {
-    phonePlaceholder: "[Phone number to be confirmed]",
-    emailPlaceholder: "[Email address to be confirmed]",
+    phonePlaceholder: "+44 7624 378119",
+    emailPlaceholder: "grasshopperfuels@outlook.com",
     addressPlaceholder: "[Business address to be confirmed], Isle of Man",
     hoursPlaceholder: "[Opening hours to be confirmed]",
+    whatsapp: "+44 7624 378119",
+    whatsappLink: "https://wa.me/447624378119",
   },
   social: {
-    facebook: "#",
+    facebook:
+      "https://www.facebook.com/p/Grasshopper-Kiln-Dried-Logs-Isle-of-Man-100057667861337/",
     instagram: "#",
   },
 };
