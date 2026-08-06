@@ -18,6 +18,7 @@ export function ProductDetail({ product }: { product: Product }) {
     "@type": "Product",
     name: product.name,
     description: product.shortDescription,
+    image: `${siteConfig.url}${product.image}`,
     brand: {
       "@type": "Brand",
       name: siteConfig.name,
@@ -34,11 +35,52 @@ export function ProductDetail({ product }: { product: Product }) {
     },
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: product.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Products",
+        item: `${siteConfig.url}/products`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: `${siteConfig.url}/products/${product.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <section className="relative overflow-hidden bg-[#202e25] pb-24 pt-36 sm:pt-40">
         <div className="absolute inset-0">
@@ -182,20 +224,16 @@ export function ProductDetail({ product }: { product: Product }) {
           <FadeIn>
             <SectionHeading eyebrow="Gallery" title="A Closer Look" />
           </FadeIn>
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {product.gallery.map((image, idx) => (
-              <FadeIn key={image} delay={idx * 0.08}>
-                <div className="relative h-64 overflow-hidden rounded-2xl shadow-sm">
-                  <Image
-                    src={product.image}
-                    alt={`${product.name} gallery image ${idx + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </FadeIn>
-            ))}
-          </div>
+          <FadeIn delay={0.08}>
+            <div className="relative mt-12 h-[28rem] overflow-hidden rounded-2xl shadow-sm">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </FadeIn>
         </div>
       </section>
 

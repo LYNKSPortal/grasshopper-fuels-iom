@@ -26,16 +26,24 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `${siteConfig.name} | Kiln-Dried Logs, Coal & Kindling, Isle of Man`,
     description: siteConfig.description,
-    images: [{ url: "/logo.png", alt: siteConfig.name }],
+    images: [
+      {
+        url: "/hero-bg-new.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} delivery van, Isle of Man`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} | Kiln-Dried Logs, Coal & Kindling`,
     description: siteConfig.description,
-    images: ["/logo.png"],
+    images: ["/hero-bg-new.jpg"],
   },
   icons: {
-    icon: "/logo.png",
+    icon: "/favicon.ico",
+    apple: "/logo.png",
   },
 };
 
@@ -43,8 +51,11 @@ const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: siteConfig.name,
+  legalName: siteConfig.legalName,
   description: siteConfig.description,
   url: siteConfig.url,
+  logo: `${siteConfig.url}/logo.png`,
+  image: `${siteConfig.url}/hero-bg-new.jpg`,
   telephone: siteConfig.contact.phonePlaceholder,
   email: siteConfig.contact.emailPlaceholder,
   address: {
@@ -58,6 +69,9 @@ const localBusinessJsonLd = {
     name: "Isle of Man",
   },
   openingHours: siteConfig.contact.hoursPlaceholder,
+  sameAs: [siteConfig.social.facebook].filter(
+    (link) => link && link !== "#"
+  ),
 };
 
 export default function RootLayout({

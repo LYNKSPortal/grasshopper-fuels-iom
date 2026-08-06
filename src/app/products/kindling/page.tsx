@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description:
     "4kg Kindling Nets and Firelighters for fast fire starting, delivered across the Isle of Man.",
   alternates: { canonical: "/products/kindling" },
+  openGraph: {
+    images: [{ url: "/Kindling-Nets-new.jpg", width: 1200, height: 630 }],
+  },
+  twitter: { images: ["/Kindling-Nets-new.jpg"] },
 };
 
 export default function KindlingPage() {
