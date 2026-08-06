@@ -110,7 +110,8 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/50 sm:flex-row">
           <p>
-            &copy; {year} Grasshopper Fuels. All rights reserved.
+            &copy; {year} {siteConfig.legalName}. All rights reserved.
+            Registered in the Isle of Man, Company No. {siteConfig.companyNumber}.
           </p>
           <div className="flex gap-6">
             <Link href="/privacy-policy" className="hover:text-white">

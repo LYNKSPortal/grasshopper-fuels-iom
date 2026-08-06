@@ -1,6 +1,8 @@
 export const siteConfig = {
   name: "Grasshopper Fuels",
   shortName: "Grasshopper Fuels",
+  legalName: "Grasshopper Fuels Limited",
+  companyNumber: "124767C",
   description:
     "Grasshopper Fuels supplies premium kiln-dried logs, coal, and kindling across the Isle of Man, with reliable island-wide delivery within 1\u20132 days.",
   url: "https://www.grasshopperfuels.example",
@@ -15,7 +17,8 @@ export const siteConfig = {
   contact: {
     phonePlaceholder: "+44 7624 378119",
     emailPlaceholder: "grasshopperfuels@outlook.com",
-    addressPlaceholder: "[Business address to be confirmed], Isle of Man",
+    addressPlaceholder:
+      "Unit 3, Hills Meadow Industrial Estate, Douglas, IM1 5EA, Isle of Man",
     hoursPlaceholder: "[Opening hours to be confirmed]",
     whatsapp: "+44 7624 378119",
     whatsappLink: "https://wa.me/447624378119",

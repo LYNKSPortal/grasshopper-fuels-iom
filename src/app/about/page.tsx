@@ -69,10 +69,10 @@ export default function AboutPage() {
             />
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-[#202e25]/70">
               <p>
-                Grasshopper Fuels is a local supplier of premium kiln-dried
-                logs, coal, and kindling, serving homes and businesses
-                throughout the Isle of Man. [Full company history and
-                founding details to be confirmed by Grasshopper Fuels.]
+                Grasshopper Fuels Limited has been serving homes and
+                businesses throughout the Isle of Man since our incorporation
+                on 19 May 2010, supplying premium kiln-dried logs, coal, and
+                kindling.
               </p>
               <p>
                 We supply solid-fuel products for a range of everyday needs,
