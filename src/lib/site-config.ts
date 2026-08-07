@@ -5,7 +5,7 @@ export const siteConfig = {
   companyNumber: "124767C",
   description:
     "Grasshopper Fuels supplies premium kiln-dried logs, coal, and kindling across the Isle of Man, with reliable island-wide delivery within three days.",
-  url: "https://www.grasshopperfuels.example",
+  url: "https://www.grasshopperfuels.com",
   keywords: [
     "kiln-dried logs Isle of Man",
     "firewood delivery Isle of Man",
@@ -13,6 +13,13 @@ export const siteConfig = {
     "kindling Isle of Man",
     "log delivery Isle of Man",
     "solid fuel supplier",
+    "Birch Oak Ash logs Isle of Man",
+    "Kosy Glo Ovoids",
+    "Oxbow Red Coal",
+    "kindling nets Isle of Man",
+    "firelighters Isle of Man",
+    "buy logs online Isle of Man",
+    "buy coal online Isle of Man",
   ],
   contact: {
     phonePlaceholder: "+44 7624 378119",
