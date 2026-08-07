@@ -20,9 +20,6 @@ export function TestimonialCard({ quote, name, location }: TestimonialCardProps)
       <div className="mt-6 border-t border-black/5 pt-4">
         <p className="text-sm font-bold text-[#202e25]">{name}</p>
         <p className="text-xs text-[#202e25]/50">{location}</p>
-        <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-[#202e25]/35">
-          Placeholder review
-        </p>
       </div>
     </div>
   );
