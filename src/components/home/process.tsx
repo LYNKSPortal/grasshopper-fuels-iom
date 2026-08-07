@@ -19,7 +19,7 @@ const steps = [
     icon: CalendarCheck,
     number: "03",
     title: "Get It Delivered",
-    description: "We'll arrange delivery to your home or business, usually within 1\u20132 days.",
+    description: "We'll arrange delivery to your home or business, usually within three days.",
   },
 ];
 

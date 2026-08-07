@@ -45,7 +45,7 @@ export const products: Product[] = [
       {
         title: "Delivery Only \u2013 No Collection",
         description:
-          "We deliver logs directly to your door, usually within 1\u20132 days, anywhere across the Isle of Man. Collection is not available.",
+          "We deliver logs directly to your door, usually within three days, anywhere across the Isle of Man. Collection is not available.",
       },
     ],
     suitableUses: [
@@ -78,7 +78,7 @@ export const products: Product[] = [
       {
         question: "Do you deliver logs, or can I collect?",
         answer:
-          "Logs are delivery only \u2013 collection is not available. We deliver directly to your door, usually within 1\u20132 days.",
+          "Logs are delivery only \u2013 collection is not available. We deliver directly to your door, usually within three days.",
       },
     ],
   },
@@ -107,7 +107,7 @@ export const products: Product[] = [
       {
         title: "Delivery Only \u2013 No Collection",
         description:
-          "We deliver coal directly to your door, usually within 1\u20132 days. Collection is not available.",
+          "We deliver coal directly to your door, usually within three days. Collection is not available.",
       },
       {
         title: "Guidance Available",
@@ -135,7 +135,7 @@ export const products: Product[] = [
       {
         question: "Is coal available for delivery?",
         answer:
-          "Yes, coal is delivered directly to your door across the Isle of Man, usually within 1\u20132 days. Collection is not available.",
+          "Yes, coal is delivered directly to your door across the Isle of Man, usually within three days. Collection is not available.",
       },
       {
         question: "What pack sizes and prices are available?",
@@ -174,7 +174,7 @@ export const products: Product[] = [
       {
         title: "Delivery Only \u2013 No Collection",
         description:
-          "Available as part of an island-wide delivery order, usually within 1\u20132 days. Collection is not available.",
+          "Available as part of an island-wide delivery order, usually within three days. Collection is not available.",
       },
     ],
     suitableUses: [
@@ -202,7 +202,7 @@ export const products: Product[] = [
       {
         question: "Do you deliver kindling across the Isle of Man?",
         answer:
-          "Yes, kindling nets and firelighters can be included in island-wide delivery orders, usually within 1\u20132 days. Collection is not available.",
+          "Yes, kindling nets and firelighters can be included in island-wide delivery orders, usually within three days. Collection is not available.",
       },
     ],
   },

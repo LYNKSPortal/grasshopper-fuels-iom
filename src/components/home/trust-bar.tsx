@@ -9,8 +9,8 @@ const items = [
   },
   {
     icon: CalendarClock,
-    title: "1\u20132 Day Delivery",
-    description: "Fast, reliable delivery turnaround across the island.",
+    title: "Fast Delivery",
+    description: "Reliable delivery, usually within three days, across the island.",
   },
   {
     icon: Flame,

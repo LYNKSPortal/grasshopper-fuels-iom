@@ -4,7 +4,7 @@ export const siteConfig = {
   legalName: "Grasshopper Fuels Limited",
   companyNumber: "124767C",
   description:
-    "Grasshopper Fuels supplies premium kiln-dried logs, coal, and kindling across the Isle of Man, with reliable island-wide delivery within 1\u20132 days.",
+    "Grasshopper Fuels supplies premium kiln-dried logs, coal, and kindling across the Isle of Man, with reliable island-wide delivery within three days.",
   url: "https://www.grasshopperfuels.example",
   keywords: [
     "kiln-dried logs Isle of Man",

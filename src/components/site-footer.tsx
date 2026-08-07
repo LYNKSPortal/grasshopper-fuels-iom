@@ -24,7 +24,7 @@ export function SiteFooter() {
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
               Local supplier of premium kiln-dried logs, coal, and kindling
               across the Isle of Man &mdash; delivered reliably to your
-              door, usually within 1&ndash;2 days.
+              door, usually within three days.
             </p>
             <div className="mt-6 flex gap-3">
               <a

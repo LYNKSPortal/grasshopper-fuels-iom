@@ -24,7 +24,7 @@ const benefits = [
   {
     icon: CalendarClock,
     title: "Fast Delivery",
-    description: "Most orders are delivered, usually within 1\u20132 days of enquiry.",
+    description: "Most orders are delivered, usually within three days of enquiry.",
   },
   {
     icon: BadgeCheck,

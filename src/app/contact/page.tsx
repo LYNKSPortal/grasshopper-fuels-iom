@@ -97,7 +97,7 @@ export default function ContactPage() {
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#202e25]/60">
                 All orders are delivered directly to your door across the
-                Isle of Man, usually within 1&ndash;2 days. Let us know your
+                Isle of Man, usually within three days. Let us know your
                 postcode on the form and we&rsquo;ll confirm the details.
               </p>
             </div>

@@ -46,7 +46,7 @@ const values = [
     icon: Truck,
     title: "Fast Delivery",
     description:
-      "Reliable delivery arranged directly to your door across the island, usually within 1\u20132 days.",
+      "Reliable delivery arranged directly to your door across the island, usually within three days.",
   },
 ];
 

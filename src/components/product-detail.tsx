@@ -202,7 +202,7 @@ export function ProductDetail({ product }: { product: Product }) {
                   <Truck className="mt-0.5 h-5 w-5 shrink-0 text-[#18af8a]" />
                   <p className="text-sm text-[#202e25]/65">
                     Delivery is arranged across the Isle of Man, usually
-                    within 1&ndash;2 days. Charges, pack sizes, and stock
+                    within three days. Charges, pack sizes, and stock
                     availability are confirmed at the time of enquiry.
                   </p>
                 </div>

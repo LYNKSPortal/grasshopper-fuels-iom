@@ -17,7 +17,7 @@ import { FadeIn } from "@/components/motion/fade-in";
 export const metadata: Metadata = {
   title: "Delivery",
   description:
-    "Learn how delivery works with Grasshopper Fuels, delivering kiln-dried logs, coal, and kindling across the Isle of Man within 1\u20132 days.",
+    "Learn how delivery works with Grasshopper Fuels, delivering kiln-dried logs, coal, and kindling across the Isle of Man within three days.",
   alternates: { canonical: "/delivery" },
 };
 
@@ -32,7 +32,7 @@ const deliverySteps = [
     icon: CalendarClock,
     title: "Fast Delivery",
     description:
-      "Most orders are delivered, usually within 1\u20132 days of your enquiry being confirmed.",
+      "Most orders are delivered, usually within three days of your enquiry being confirmed.",
   },
   {
     icon: Warehouse,
@@ -57,7 +57,7 @@ const stockHighlights = [
   {
     icon: Truck,
     title: "Delivery Turnaround",
-    description: "Most orders are delivered, usually within 1\u20132 days.",
+    description: "Most orders are delivered, usually within three days.",
   },
 ];
 
@@ -80,7 +80,7 @@ const deliveryFaqs = [
   {
     question: "How quickly will my order arrive?",
     answer:
-      "Most orders are delivered within 1\u20132 days of your enquiry being confirmed. We don't guarantee specific days or time slots in advance.",
+      "Most orders are delivered within three days of your enquiry being confirmed. We don't guarantee specific days or time slots in advance.",
   },
   {
     question: "Can I collect my order instead?",
@@ -100,7 +100,7 @@ export default function DeliveryPage() {
       <PageHero
         eyebrow="Delivery"
         title="Getting Your Order To You"
-        description="Island-wide delivery across the Isle of Man, usually within 1\u20132 days. Delivery only \u2013 collection is not available."
+        description="Island-wide delivery across the Isle of Man, usually within three days. Delivery only \u2013 collection is not available."
       />
       <Breadcrumbs items={[{ label: "Delivery" }]} />
 
@@ -109,8 +109,9 @@ export default function DeliveryPage() {
           <FadeIn>
             <p className="text-lg leading-relaxed text-[#202e25]/70">
               Grasshopper Fuels offers island-wide delivery for our range of
-              kiln-dried logs, coal, and kindling, usually within 1&ndash;2
-              days. Delivery only &mdash; collection is not available. Our
+              kiln-dried logs, coal, and kindling, with fast delivery
+              usually within three days. Delivery only &mdash; collection is
+              not available. Our
               team will confirm the details when you get in touch.
             </p>
           </FadeIn>
@@ -206,7 +207,7 @@ export default function DeliveryPage() {
                     Delivery Turnaround
                   </dt>
                   <dd className="mt-1 text-sm text-[#202e25]/70">
-                    Usually 1&ndash;2 days from enquiry confirmation
+                    Usually three days from enquiry confirmation
                   </dd>
                 </div>
                 <div>

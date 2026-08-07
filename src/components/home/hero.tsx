@@ -7,7 +7,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 const trustIndicators = [
   "Island-Wide Delivery",
-  "1\u20132 Day Delivery",
+  "Fast Delivery",
   "Premium Quality Fuel",
   "Friendly Local Service",
 ];
@@ -67,7 +67,8 @@ export function HomeHero() {
             className="mt-6 max-w-xl text-lg leading-relaxed text-white/75"
           >
             High-quality kiln-dried firewood, coal, and kindling delivered
-            reliably across the Isle of Man, usually within 1&ndash;2 days.
+            reliably across the Isle of Man, with fast delivery usually
+            within three days.
           </motion.p>
 
           <motion.div
