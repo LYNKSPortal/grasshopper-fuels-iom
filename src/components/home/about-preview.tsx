@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/motion/fade-in";
 const points = [
   "Serving homes and businesses across the Isle of Man",
   "Dependable kiln-dried logs, coal, and kindling",
-  "Reliable island-wide delivery within 1\u20132 days",
+  "Fast, reliable delivery, usually within 1\u20132 days",
   "Friendly, knowledgeable local service",
 ];
 

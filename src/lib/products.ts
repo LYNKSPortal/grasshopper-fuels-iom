@@ -45,7 +45,7 @@ export const products: Product[] = [
       {
         title: "Delivery Only \u2013 No Collection",
         description:
-          "We deliver logs directly to your door within 1\u20132 days, anywhere across the Isle of Man. Collection is not available.",
+          "We deliver logs directly to your door, usually within 1\u20132 days, anywhere across the Isle of Man. Collection is not available.",
       },
     ],
     suitableUses: [
@@ -107,7 +107,7 @@ export const products: Product[] = [
       {
         title: "Delivery Only \u2013 No Collection",
         description:
-          "We deliver coal directly to your door within 1\u20132 days. Collection is not available.",
+          "We deliver coal directly to your door, usually within 1\u20132 days. Collection is not available.",
       },
       {
         title: "Guidance Available",

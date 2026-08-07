@@ -30,9 +30,9 @@ const deliverySteps = [
   },
   {
     icon: CalendarClock,
-    title: "1\u20132 Day Delivery",
+    title: "Fast Delivery",
     description:
-      "Most orders are delivered within 1\u20132 days of your enquiry being confirmed. [Specific delivery days/slots to be confirmed]",
+      "Most orders are delivered, usually within 1\u20132 days of your enquiry being confirmed.",
   },
   {
     icon: Warehouse,
@@ -57,7 +57,7 @@ const stockHighlights = [
   {
     icon: Truck,
     title: "Delivery Turnaround",
-    description: "Most orders are delivered within 1\u20132 days.",
+    description: "Most orders are delivered, usually within 1\u20132 days.",
   },
 ];
 

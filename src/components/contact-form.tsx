@@ -5,32 +5,25 @@ import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 type FormState = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
-  product: string;
-  quantity: string;
-  postcode: string;
+  order: string;
+  address: string;
   message: string;
 };
 
 const initialState: FormState = {
-  name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   phone: "",
-  product: "",
-  quantity: "",
-  postcode: "",
+  order: "",
+  address: "",
   message: "",
 };
 
@@ -48,14 +41,18 @@ export function ContactForm() {
 
   function validate(): boolean {
     const next: Errors = {};
-    if (!form.name.trim()) next.name = "Please enter your name.";
+    if (!form.firstName.trim()) next.firstName = "Please enter your first name.";
+    if (!form.lastName.trim()) next.lastName = "Please enter your last name.";
     if (!form.email.trim()) {
       next.email = "Please enter your email address.";
     } else if (!/^\S+@\S+\.\S+$/.test(form.email)) {
       next.email = "Please enter a valid email address.";
     }
     if (!form.phone.trim()) next.phone = "Please enter a contact phone number.";
-    if (!form.product) next.product = "Please select a product.";
+    if (!form.order.trim())
+      next.order = "Please tell us what you're looking to order.";
+    if (!form.address.trim())
+      next.address = "Please enter your full delivery address.";
     if (!form.message.trim()) next.message = "Please tell us a little about your enquiry.";
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -106,19 +103,34 @@ export function ContactForm() {
       </p>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <Field label="Full Name" htmlFor="name" error={errors.name}>
+        <Field label="First Name" htmlFor="firstName" error={errors.firstName}>
           <Input
-            id="name"
-            name="name"
-            autoComplete="name"
-            value={form.name}
-            onChange={(e) => update("name", e.target.value)}
-            aria-invalid={Boolean(errors.name)}
-            aria-describedby={errors.name ? "name-error" : undefined}
-            placeholder="Jane Kelly"
+            id="firstName"
+            name="firstName"
+            autoComplete="given-name"
+            value={form.firstName}
+            onChange={(e) => update("firstName", e.target.value)}
+            aria-invalid={Boolean(errors.firstName)}
+            aria-describedby={errors.firstName ? "firstName-error" : undefined}
+            placeholder="Jane"
           />
         </Field>
 
+        <Field label="Last Name" htmlFor="lastName" error={errors.lastName}>
+          <Input
+            id="lastName"
+            name="lastName"
+            autoComplete="family-name"
+            value={form.lastName}
+            onChange={(e) => update("lastName", e.target.value)}
+            aria-invalid={Boolean(errors.lastName)}
+            aria-describedby={errors.lastName ? "lastName-error" : undefined}
+            placeholder="Kelly"
+          />
+        </Field>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Field label="Email Address" htmlFor="email" error={errors.email}>
           <Input
             id="email"
@@ -129,7 +141,7 @@ export function ContactForm() {
             onChange={(e) => update("email", e.target.value)}
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? "email-error" : undefined}
-            placeholder="jane@example.com"
+            placeholder="jane.example@manx.net"
           />
         </Field>
 
@@ -146,47 +158,36 @@ export function ContactForm() {
             placeholder="07624 000000"
           />
         </Field>
-
-        <Field label="Delivery Postcode / Area" htmlFor="postcode">
-          <Input
-            id="postcode"
-            name="postcode"
-            autoComplete="postal-code"
-            value={form.postcode}
-            onChange={(e) => update("postcode", e.target.value)}
-            placeholder="e.g. IM1"
-          />
-        </Field>
-
-        <Field label="Product" htmlFor="product" error={errors.product}>
-          <Select
-            value={form.product}
-            onValueChange={(value) => update("product", value as string)}
-          >
-            <SelectTrigger id="product" className="w-full">
-              <SelectValue placeholder="Choose a product" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="kiln-dried-logs">Kiln-Dried Logs</SelectItem>
-              <SelectItem value="coal">Coal</SelectItem>
-              <SelectItem value="kindling">Firewood Accessories</SelectItem>
-              <SelectItem value="not-sure">Not Sure / Multiple Products</SelectItem>
-            </SelectContent>
-          </Select>
-        </Field>
       </div>
 
-      <Field label="Quantity or Requirements" htmlFor="quantity">
-        <Input
-          id="quantity"
-          name="quantity"
-          value={form.quantity}
-          onChange={(e) => update("quantity", e.target.value)}
-          placeholder="e.g. Approximate quantity, or leave blank if unsure"
+      <Field label="What Are You Looking to Order?" htmlFor="order" error={errors.order}>
+        <Textarea
+          id="order"
+          name="order"
+          rows={3}
+          value={form.order}
+          onChange={(e) => update("order", e.target.value)}
+          aria-invalid={Boolean(errors.order)}
+          aria-describedby={errors.order ? "order-error" : undefined}
+          placeholder="e.g. 2 bags of kiln-dried logs and a bag of coal"
         />
       </Field>
 
-      <Field label="Message" htmlFor="message" error={errors.message}>
+      <Field label="Delivery Address" htmlFor="address" error={errors.address}>
+        <Textarea
+          id="address"
+          name="address"
+          autoComplete="street-address"
+          rows={3}
+          value={form.address}
+          onChange={(e) => update("address", e.target.value)}
+          aria-invalid={Boolean(errors.address)}
+          aria-describedby={errors.address ? "address-error" : undefined}
+          placeholder="e.g. 12 Main Road, Onchan, Douglas, IM3 2AB"
+        />
+      </Field>
+
+      <Field label="Access, Timing & Delivery Information" htmlFor="message" error={errors.message}>
         <Textarea
           id="message"
           name="message"
@@ -195,7 +196,7 @@ export function ContactForm() {
           onChange={(e) => update("message", e.target.value)}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-error" : undefined}
-          placeholder="Tell us about what you need and any access or timing information."
+          placeholder="Let us know about any access restrictions, preferred delivery timing, or other useful details."
         />
       </Field>
 
