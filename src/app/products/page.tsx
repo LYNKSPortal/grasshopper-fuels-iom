@@ -9,12 +9,25 @@ import { FeatureCard } from "@/components/feature-card";
 import { CtaBanner } from "@/components/cta-banner";
 import { FadeIn } from "@/components/motion/fade-in";
 import { products } from "@/lib/products";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Products",
+  title: "Products \u2013 Kiln-Dried Logs, Coal & Kindling",
   description:
     "Browse kiln-dried logs, coal, and firewood accessories from Grasshopper Fuels, delivered across the Isle of Man.",
+  keywords: siteConfig.keywords,
   alternates: { canonical: "/products" },
+};
+
+const itemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: products.map((product, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: `${siteConfig.url}/products/${product.slug}`,
+    name: product.name,
+  })),
 };
 
 const benefits = [
@@ -43,6 +56,10 @@ const benefits = [
 export default function ProductsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <PageHero
         eyebrow="Our Products"
         title="Kiln-Dried Logs, Coal & Kindling"

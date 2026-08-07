@@ -109,8 +109,8 @@ export default function AboutPage() {
           <FadeIn>
             <div className="relative h-80 overflow-hidden rounded-3xl shadow-xl sm:h-[26rem]">
               <Image
-                src="/Kiln-Dried-Logs.jpg"
-                alt="Grasshopper Fuels kiln-dried logs"
+                src="/van-in-the-wild.jpg"
+                alt="Grasshopper Fuels delivery van on the Isle of Man"
                 fill
                 className="object-cover"
               />

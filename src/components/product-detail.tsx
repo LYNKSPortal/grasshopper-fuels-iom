@@ -86,7 +86,7 @@ export function ProductDetail({ product }: { product: Product }) {
         <div className="absolute inset-0">
           <Image
             src={product.image}
-            alt={product.name}
+            alt={`${product.name} \u2013 ${product.shortDescription}`}
             fill
             className="object-cover opacity-30"
           />
@@ -225,10 +225,10 @@ export function ProductDetail({ product }: { product: Product }) {
             <SectionHeading eyebrow="Gallery" title="A Closer Look" />
           </FadeIn>
           <FadeIn delay={0.08}>
-            <div className="relative mt-12 h-[28rem] overflow-hidden rounded-2xl shadow-sm">
+            <div className="relative mx-auto mt-12 aspect-square w-full max-w-2xl overflow-hidden rounded-2xl shadow-sm">
               <Image
                 src={product.image}
-                alt={product.name}
+                alt={`${product.name} \u2013 ${product.shortDescription}`}
                 fill
                 className="object-cover"
               />

@@ -29,7 +29,7 @@ export function ProductCard({
       <div className="relative aspect-square w-full overflow-hidden">
         <Image
           src={image}
-          alt={name}
+          alt={`${name} \u2013 ${description}`}
           fill
           className="object-cover"
         />

@@ -4,6 +4,7 @@ export type Product = {
   shortDescription: string;
   benefit: string;
   image: string;
+  keywords: string[];
   variants?: string[];
   stockNote?: string;
   gallery: string[];
@@ -21,6 +22,14 @@ export const products: Product[] = [
       "Premium Birch, Oak, and Ash logs, kiln-dried for a cleaner, more consistent burn.",
     benefit: "Delivery only \u2013 no collection",
     image: "/Kiln-Dried-Logs.jpg",
+    keywords: [
+      "kiln-dried logs Isle of Man",
+      "Birch logs",
+      "Oak logs",
+      "Ash logs",
+      "firewood delivery Isle of Man",
+      "buy logs online Isle of Man",
+    ],
     variants: ["Birch", "Oak", "Ash"],
     stockNote: "18 trailer loads of logs currently in stock.",
     gallery: ["kiln-dried-logs-1", "kiln-dried-logs-2", "kiln-dried-logs-3"],
@@ -89,6 +98,14 @@ export const products: Product[] = [
       "Premium Kosy Glo Ovoids and Oxbow Red Coal, supplied in 20kg bags for consistent, long-lasting heat.",
     benefit: "20kg bags, delivery only",
     image: "/coal-new.jpg",
+    keywords: [
+      "coal supplier Isle of Man",
+      "Kosy Glo Ovoids",
+      "Oxbow Red Coal",
+      "house coal Isle of Man",
+      "buy coal online Isle of Man",
+      "20kg coal bags",
+    ],
     variants: ["Premium Kosy Glo Ovoids \u2013 20kg bags", "Premium Oxbow Red Coal \u2013 20kg bags"],
     gallery: ["coal-1", "coal-2", "coal-3"],
     intro:
@@ -151,6 +168,13 @@ export const products: Product[] = [
       "4kg Kindling Nets and Firelighters for fast, fuss-free fire starting.",
     benefit: "Kindling nets & firelighters",
     image: "/Kindling-Nets-new.jpg",
+    keywords: [
+      "kindling Isle of Man",
+      "kindling nets Isle of Man",
+      "firelighters Isle of Man",
+      "fire starting logs",
+      "4kg kindling nets",
+    ],
     variants: ["4kg Kindling Nets", "Firelighters"],
     gallery: ["kindling-1", "kindling-2", "kindling-3"],
     intro:
