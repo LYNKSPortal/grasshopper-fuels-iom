@@ -5,8 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu } from "lucide-react";
+import { ChevronDown, Menu, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/lib/cart-context";
 import {
   Sheet,
   SheetContent,
@@ -40,6 +41,7 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const { totalCount } = useCart();
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
@@ -153,10 +155,27 @@ export function SiteHeader() {
             <WhatsAppIcon className="h-4 w-4" />
             07624 378119
           </a>
+          <Link
+            href="/basket"
+            aria-label="View basket"
+            className={cn(
+              "relative flex h-10 w-10 items-center justify-center rounded-full transition-colors",
+              isTransparent
+                ? "text-white/90 hover:text-white"
+                : "text-[#202e25] hover:text-[#18af8a]"
+            )}
+          >
+            <ShoppingCart className="h-5 w-5" />
+            {totalCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#63cd26] px-1 text-[10px] font-bold text-[#202e25]">
+                {totalCount}
+              </span>
+            )}
+          </Link>
           <Button
             render={
               <Link
-                href="/contact"
+                href="/order"
                 className="rounded-full bg-[#63cd26] px-6 py-2.5 font-bold text-[#202e25] shadow-md hover:bg-[#52ac1e] hover:text-[#202e25]"
               />
             }
@@ -165,7 +184,22 @@ export function SiteHeader() {
           </Button>
         </div>
 
-        <div className="flex lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
+          <Link
+            href="/basket"
+            aria-label="View basket"
+            className={cn(
+              "relative flex h-10 w-10 items-center justify-center rounded-full transition-colors",
+              isTransparent ? "text-white" : "text-[#202e25]"
+            )}
+          >
+            <ShoppingCart className="h-5 w-5" />
+            {totalCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#63cd26] px-1 text-[10px] font-bold text-[#202e25]">
+                {totalCount}
+              </span>
+            )}
+          </Link>
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger
               render={
@@ -236,7 +270,7 @@ export function SiteHeader() {
                 <SheetClose
                   render={
                     <Link
-                      href="/contact"
+                      href="/order"
                       className="mt-4 flex w-full items-center justify-center rounded-full bg-[#63cd26] py-4 text-base font-bold text-[#202e25] hover:bg-[#52ac1e]"
                     />
                   }

@@ -7,9 +7,9 @@ import { FadeIn } from "@/components/motion/fade-in";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Contact & Order Enquiry",
+  title: "Contact Us",
   description:
-    "Get in touch with Grasshopper Fuels to enquire about kiln-dried logs, coal, and kindling, and arrange delivery across the Isle of Man.",
+    "Get in touch with Grasshopper Fuels with any questions about kiln-dried logs, coal, and kindling, or delivery across the Isle of Man.",
   alternates: { canonical: "/contact" },
 };
 
@@ -47,8 +47,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Get In Touch"
-        title="Contact & Order Enquiry"
-        description="Send us your order enquiry and we'll confirm availability, pricing, and delivery details."
+        title="Contact Us"
+        description="Have a question, or not sure what you need? Send us a message and we'll get back to you."
       />
       <Breadcrumbs items={[{ label: "Contact" }]} />
 
@@ -93,12 +93,15 @@ export default function ContactPage() {
 
             <div className="mt-10 rounded-2xl border border-black/5 bg-[#f7faf9] p-6">
               <h3 className="text-sm font-bold text-[#202e25]">
-                Delivery
+                Looking to Place an Order?
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#202e25]/60">
-                All orders are delivered directly to your door across the
-                Isle of Man, usually within three days. Let us know your
-                postcode on the form and we&rsquo;ll confirm the details.
+                Head to our{" "}
+                <a href="/order" className="font-semibold text-[#18af8a] underline underline-offset-4">
+                  order page
+                </a>{" "}
+                to add products to your basket and check out with your
+                delivery details.
               </p>
             </div>
           </FadeIn>
@@ -106,11 +109,11 @@ export default function ContactPage() {
           <FadeIn delay={0.1} className="lg:col-span-3">
             <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-10">
               <h2 className="text-2xl font-extrabold text-[#202e25]">
-                Order Enquiry Form
+                Send Us a Message
               </h2>
               <p className="mt-2 text-sm text-[#202e25]/60">
-                Fill in the form below and our team will get back to you to
-                confirm your order.
+                Fill in the form below and our team will get back to you as
+                soon as possible.
               </p>
               <div className="mt-8">
                 <ContactForm />

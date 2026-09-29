@@ -78,7 +78,7 @@ export function HomeHero() {
             className="mt-9 flex flex-col gap-4 sm:flex-row"
           >
             <Link
-              href="/contact"
+              href="/order"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#63cd26] px-8 py-4 text-base font-bold text-[#202e25] shadow-lg transition-transform hover:-translate-y-0.5 hover:bg-[#52ac1e] active:translate-y-0"
             >
               Order Now

@@ -6,6 +6,9 @@ export type Product = {
   image: string;
   keywords: string[];
   variants?: string[];
+  variantPrices?: Record<string, string>;
+  variantOffers?: Record<string, string>;
+  variantBulkOffers?: Record<string, { minQty: number; unitPrice: number }>;
   stockNote?: string;
   gallery: string[];
   intro: string;
@@ -31,6 +34,17 @@ export const products: Product[] = [
       "buy logs online Isle of Man",
     ],
     variants: ["Birch", "Oak", "Ash"],
+    variantPrices: {
+      Birch: "£6.50 per net",
+      Oak: "£6.90 per net",
+      Ash: "£6.90 per net",
+    },
+    variantOffers: {
+      Birch: "Special offer: buy 50 for £5.50 each",
+    },
+    variantBulkOffers: {
+      Birch: { minQty: 50, unitPrice: 5.5 },
+    },
     stockNote: "18 trailer loads of logs currently in stock.",
     gallery: ["kiln-dried-logs-1", "kiln-dried-logs-2", "kiln-dried-logs-3"],
     intro:
@@ -176,6 +190,9 @@ export const products: Product[] = [
       "4kg kindling nets",
     ],
     variants: ["4kg Kindling Nets", "Firelighters"],
+    variantPrices: {
+      "4kg Kindling Nets": "£4.00 per net",
+    },
     gallery: ["kindling-1", "kindling-2", "kindling-3"],
     intro:
       "Our 4kg Kindling Nets and Firelighters are designed to help get your fire started quickly and easily, whether you are lighting a stove, fireplace, or fire pit. Pair them with our kiln-dried logs or coal for a complete, hassle-free fire-lighting solution.",

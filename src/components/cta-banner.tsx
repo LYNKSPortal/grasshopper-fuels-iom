@@ -14,7 +14,7 @@ export function CtaBanner({
   heading,
   description,
   primaryLabel = "Order Now",
-  primaryHref = "/contact",
+  primaryHref = "/order",
   secondaryLabel = "Contact Us",
   secondaryHref = "/contact",
 }: CtaBannerProps) {

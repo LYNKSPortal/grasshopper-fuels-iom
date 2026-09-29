@@ -126,6 +126,18 @@ export function ProductDetail({ product }: { product: Product }) {
               ))}
             </FadeIn>
           )}
+          {product.variantOffers && (
+            <FadeIn delay={0.12} className="mt-3 flex flex-wrap gap-2">
+              {Object.entries(product.variantOffers).map(([variant, offer]) => (
+                <span
+                  key={variant}
+                  className="inline-flex items-center rounded-full bg-[#63cd26]/15 px-4 py-1.5 text-xs font-bold text-[#4d8f1b]"
+                >
+                  {variant}: {offer}
+                </span>
+              ))}
+            </FadeIn>
+          )}
           {product.stockNote && (
             <FadeIn delay={0.15} className="mt-6">
               <p className="inline-flex items-center gap-2 rounded-full bg-[#63cd26]/10 px-4 py-2 text-sm font-semibold text-[#202e25]">
@@ -208,10 +220,10 @@ export function ProductDetail({ product }: { product: Product }) {
                 </div>
               </div>
               <Link
-                href="/contact"
+                href="/order"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#18af8a] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#139775]"
               >
-                Enquire About This Product
+                Add to Basket
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
