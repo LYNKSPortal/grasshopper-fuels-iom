@@ -1,16 +1,30 @@
 import { cookies } from "next/headers";
+import bcrypt from "bcryptjs";
+import { ADMIN_SESSION_COOKIE, verifyAdminSessionToken } from "@/lib/admin-session";
 
-export const ADMIN_SESSION_COOKIE = "gf_admin_session";
-export const ADMIN_SESSION_VALUE = "authenticated";
+export { ADMIN_SESSION_COOKIE };
 
-const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "admin";
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) throw new Error(`Missing required environment variable: ${name}`);
+  return value;
+}
 
-export function verifyAdminCredentials(username: string, password: string): boolean {
-  return username === ADMIN_USERNAME && password === ADMIN_PASSWORD;
+export async function verifyAdminCredentials(
+  username: string,
+  password: string
+): Promise<boolean> {
+  const expectedUsername = requireEnv("ADMIN_USERNAME");
+  const passwordHash = requireEnv("ADMIN_PASSWORD_HASH");
+
+  // Always run the (constant-time) hash comparison, even on a username
+  // mismatch, so a wrong username doesn't respond noticeably faster than a
+  // wrong password and leak which one was incorrect via timing.
+  const passwordMatches = await bcrypt.compare(password, passwordHash);
+  return username === expectedUsername && passwordMatches;
 }
 
 export async function isAdminAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
-  return cookieStore.get(ADMIN_SESSION_COOKIE)?.value === ADMIN_SESSION_VALUE;
+  return verifyAdminSessionToken(cookieStore.get(ADMIN_SESSION_COOKIE)?.value);
 }
