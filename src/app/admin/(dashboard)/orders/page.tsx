@@ -10,9 +10,9 @@ export default async function AdminOrdersPage() {
   const done = orders.filter((o) => o.status === "done");
 
   return (
-    <div className="space-y-12 p-8">
+    <div className="space-y-8 p-4 sm:space-y-12 sm:p-8">
       <div>
-        <h1 className="text-2xl font-extrabold text-[#202e25]">Orders</h1>
+        <h1 className="text-xl font-extrabold text-[#202e25] sm:text-2xl">Orders</h1>
         <p className="mt-1 text-sm text-[#202e25]/60">
           Enquiries submitted through the website contact form.
         </p>

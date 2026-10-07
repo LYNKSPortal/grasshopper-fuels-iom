@@ -15,7 +15,6 @@ export const siteConfig = {
     "solid fuel supplier",
     "Birch Oak Ash logs Isle of Man",
     "Kosy Glo Ovoids",
-    "Oxbow Red Coal",
     "kindling nets Isle of Man",
     "firelighters Isle of Man",
     "buy logs online Isle of Man",

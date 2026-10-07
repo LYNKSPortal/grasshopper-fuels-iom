@@ -92,8 +92,10 @@ function VariantRow({
   const { items, addItem } = useCart();
   const cartItem = items.find((i) => i.key === key);
   const cartQuantity = cartItem?.quantity ?? 0;
-  const [quantity, setLocalQuantity] = useState(1);
+  const [quantityInput, setQuantityInput] = useState("1");
   const [justAdded, setJustAdded] = useState(false);
+
+  const quantity = Math.min(99, Math.max(1, parseInt(quantityInput, 10) || 1));
 
   function handleAdd() {
     addItem(
@@ -108,8 +110,18 @@ function VariantRow({
       quantity
     );
     setJustAdded(true);
-    setLocalQuantity(1);
+    setQuantityInput("1");
     window.setTimeout(() => setJustAdded(false), 1600);
+  }
+
+  function handleQuantityInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.value;
+    if (raw !== "" && !/^\d+$/.test(raw)) return;
+    setQuantityInput(raw);
+  }
+
+  function handleQuantityInputBlur() {
+    setQuantityInput(String(quantity));
   }
 
   return (
@@ -135,18 +147,25 @@ function VariantRow({
         <div className="flex items-center gap-1.5 rounded-full border border-input p-1">
           <button
             type="button"
-            onClick={() => setLocalQuantity((q) => Math.max(1, q - 1))}
+            onClick={() => setQuantityInput(String(Math.max(1, quantity - 1)))}
             aria-label={`Decrease quantity for ${variant}`}
             className="flex h-7 w-7 items-center justify-center rounded-full text-[#202e25] transition-colors hover:bg-muted"
           >
             <Minus className="h-3.5 w-3.5" />
           </button>
-          <span className="w-6 text-center text-sm font-semibold text-[#202e25]">
-            {quantity}
-          </span>
+          <input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={quantityInput}
+            onChange={handleQuantityInputChange}
+            onBlur={handleQuantityInputBlur}
+            aria-label={`Quantity for ${variant}`}
+            className="w-8 border-0 bg-transparent text-center text-sm font-semibold text-[#202e25] outline-none"
+          />
           <button
             type="button"
-            onClick={() => setLocalQuantity((q) => Math.min(99, q + 1))}
+            onClick={() => setQuantityInput(String(Math.min(99, quantity + 1)))}
             aria-label={`Increase quantity for ${variant}`}
             className="flex h-7 w-7 items-center justify-center rounded-full text-[#202e25] transition-colors hover:bg-muted"
           >

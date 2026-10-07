@@ -19,7 +19,7 @@ export default async function AdminCustomerDetailPage({
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-8">
       <Link
         href="/admin/customers"
         className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#202e25]/60 hover:text-[#202e25]"
@@ -28,8 +28,8 @@ export default async function AdminCustomerDetailPage({
         Back to customers
       </Link>
 
-      <div className="mb-8 rounded-3xl border border-black/5 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-extrabold text-[#202e25]">
+      <div className="mb-6 rounded-3xl border border-black/5 bg-white p-4 shadow-sm sm:mb-8 sm:p-6">
+        <h1 className="text-xl font-extrabold text-[#202e25] sm:text-2xl">
           {customer.firstName} {customer.lastName}
         </h1>
         <div className="mt-3 grid grid-cols-1 gap-3 text-sm text-[#202e25]/70 sm:grid-cols-3">

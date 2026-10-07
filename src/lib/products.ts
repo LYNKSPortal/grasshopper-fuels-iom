@@ -109,21 +109,23 @@ export const products: Product[] = [
     slug: "coal",
     name: "Coal",
     shortDescription:
-      "Premium Kosy Glo Ovoids and Oxbow Red Coal, supplied in 20kg bags for consistent, long-lasting heat.",
+      "Premium Kosy Glo Ovoids, supplied in 20kg bags for consistent, long-lasting heat.",
     benefit: "20kg bags, delivery only",
     image: "/coal-new.jpg",
     keywords: [
       "coal supplier Isle of Man",
       "Kosy Glo Ovoids",
-      "Oxbow Red Coal",
       "house coal Isle of Man",
       "buy coal online Isle of Man",
       "20kg coal bags",
     ],
-    variants: ["Premium Kosy Glo Ovoids \u2013 20kg bags", "Premium Oxbow Red Coal \u2013 20kg bags"],
+    variants: ["Premium Kosy Glo Ovoids \u2013 20kg bags"],
+    variantPrices: {
+      "Premium Kosy Glo Ovoids \u2013 20kg bags": "£12.50 per bag",
+    },
     gallery: ["coal-1", "coal-2", "coal-3"],
     intro:
-      "Grasshopper Fuels supplies Premium Kosy Glo Ovoids and Premium Oxbow Red Coal, both in convenient 20kg bags, suited to a range of household heating needs. Whether you rely on solid fuel as your main source of heat or use it alongside other fuels, our team can help you choose a suitable product for your home.",
+      "Grasshopper Fuels supplies Premium Kosy Glo Ovoids, in convenient 20kg bags, suited to a range of household heating needs. Whether you rely on solid fuel as your main source of heat or use it alongside other fuels, our team can help you choose a suitable product for your home.",
     benefits: [
       {
         title: "Reliable Heat",
@@ -156,7 +158,7 @@ export const products: Product[] = [
       {
         question: "What types of coal do you supply?",
         answer:
-          "We supply Premium Kosy Glo Ovoids and Premium Oxbow Red Coal, both in 20kg bags.",
+          "We supply Premium Kosy Glo Ovoids, in 20kg bags.",
       },
       {
         question: "Can you help me choose the right coal for my fire?",
@@ -171,7 +173,7 @@ export const products: Product[] = [
       {
         question: "What pack sizes and prices are available?",
         answer:
-          "Both Premium Kosy Glo Ovoids and Premium Oxbow Red Coal are supplied in 20kg bags. [Pricing to be confirmed]. Contact us for up-to-date information.",
+          "Premium Kosy Glo Ovoids are supplied in 20kg bags at £12.50 per bag.",
       },
     ],
   },

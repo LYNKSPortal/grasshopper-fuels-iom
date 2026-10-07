@@ -23,7 +23,7 @@ const homeFaqs = [
   {
     question: "What types of coal do you supply?",
     answer:
-      "We supply Premium Kosy Glo Ovoids and Premium Oxbow Red Coal, both in 20kg bags.",
+      "We supply Premium Kosy Glo Ovoids, in 20kg bags at £12.50 per bag.",
   },
 ];
 
