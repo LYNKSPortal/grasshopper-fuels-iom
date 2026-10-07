@@ -12,9 +12,9 @@ export const metadata: Metadata = {
     title: "Kindling Nets & Firelighters | Grasshopper Fuels",
     description:
       "4kg Kindling Nets and Firelighters for fast, fuss-free fire starting. Delivered across the Isle of Man.",
-    images: [{ url: "/Kindling-Nets-new.jpg", width: 1200, height: 630, alt: "4kg kindling nets and firelighters" }],
+    images: [{ url: "/natural-firelighters-02.jpg", width: 1200, height: 630, alt: "4kg kindling nets and firelighters" }],
   },
-  twitter: { images: ["/Kindling-Nets-new.jpg"] },
+  twitter: { images: ["/natural-firelighters-02.jpg"] },
 };
 
 export default function KindlingPage() {

@@ -183,7 +183,7 @@ export const products: Product[] = [
     shortDescription:
       "4kg Kindling Nets and Firelighters for fast, fuss-free fire starting.",
     benefit: "Kindling nets & firelighters",
-    image: "/Kindling-Nets-new.jpg",
+    image: "/natural-firelighters-02.jpg",
     keywords: [
       "kindling Isle of Man",
       "kindling nets Isle of Man",
@@ -194,6 +194,7 @@ export const products: Product[] = [
     variants: ["4kg Kindling Nets", "Firelighters"],
     variantPrices: {
       "4kg Kindling Nets": "£4.00 per net",
+      Firelighters: "£6.99 per box of 50",
     },
     gallery: ["kindling-1", "kindling-2", "kindling-3"],
     intro:
