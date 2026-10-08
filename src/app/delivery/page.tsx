@@ -17,16 +17,16 @@ import { FadeIn } from "@/components/motion/fade-in";
 export const metadata: Metadata = {
   title: "Delivery",
   description:
-    "Learn how delivery works with Grasshopper Fuels, delivering kiln-dried logs, coal, and kindling across the Isle of Man within three days.",
+    "Learn how free delivery works with Grasshopper Fuels, delivering kiln-dried logs, coal, and kindling across the Isle of Man within three days.",
   alternates: { canonical: "/delivery" },
 };
 
 const deliverySteps = [
   {
     icon: Truck,
-    title: "Island-Wide Delivery",
+    title: "Free Island-Wide Delivery",
     description:
-      "We deliver logs, coal, and kindling directly to homes and businesses across the Isle of Man. Delivery only \u2013 collection is not available.",
+      "We deliver logs, coal, and kindling directly to homes and businesses across the Isle of Man, free of charge. Delivery only \u2013 collection is not available.",
   },
   {
     icon: CalendarClock,
@@ -43,8 +43,7 @@ const deliverySteps = [
   {
     icon: Banknote,
     title: "Delivery Charges",
-    description:
-      "[Delivery charge information to be confirmed]. Charges may vary depending on location and order size.",
+    description: "Free \u2013 there is no delivery charge anywhere on the Isle of Man.",
   },
 ];
 
@@ -70,7 +69,7 @@ const deliveryFaqs = [
   {
     question: "How much does delivery cost?",
     answer:
-      "[Delivery charge information to be confirmed]. Get in touch and we can talk through the cost for your order.",
+      "Delivery is free across the Isle of Man \u2013 there is no delivery charge on any order.",
   },
   {
     question: "Is there a minimum order for delivery?",
@@ -100,7 +99,7 @@ export default function DeliveryPage() {
       <PageHero
         eyebrow="Delivery"
         title="Getting Your Order To You"
-        description="Island-wide delivery across the Isle of Man, usually within three days. Delivery only \u2013 collection is not available."
+        description="Free island-wide delivery across the Isle of Man, usually within three days. Delivery only \u2013 collection is not available."
       />
       <Breadcrumbs items={[{ label: "Delivery" }]} />
 
@@ -108,11 +107,11 @@ export default function DeliveryPage() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <p className="text-lg leading-relaxed text-[#202e25]/70">
-              Grasshopper Fuels offers island-wide delivery for our range of
-              kiln-dried logs, coal, and kindling, with fast delivery
-              usually within three days. Delivery only &mdash; collection is
-              not available. Our
-              team will confirm the details when you get in touch.
+              Grasshopper Fuels offers free island-wide delivery for our
+              range of kiln-dried logs, coal, and kindling, with fast
+              delivery usually within three days. Delivery only &mdash;
+              collection is not available. Our team will confirm the
+              details when you get in touch.
             </p>
           </FadeIn>
         </div>
@@ -199,7 +198,7 @@ export default function DeliveryPage() {
                     Delivery Charges
                   </dt>
                   <dd className="mt-1 text-sm text-[#202e25]/70">
-                    [Delivery charges to be confirmed]
+                    Free &mdash; no delivery charge anywhere on the island
                   </dd>
                 </div>
                 <div>
@@ -245,7 +244,7 @@ export default function DeliveryPage() {
 
       <CtaBanner
         heading="Ready to Arrange Your Order?"
-        description="Contact Grasshopper Fuels to arrange your island-wide delivery."
+        description="Contact Grasshopper Fuels to arrange your free island-wide delivery."
       />
     </>
   );

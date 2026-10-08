@@ -18,20 +18,20 @@ export function HomeDeliveryPreview() {
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <FadeIn>
           <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#63cd26]">
-            Fast Island-Wide Delivery
+            Free Island-Wide Delivery
           </span>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            Reliable Delivery Across the Isle of Man
+            Free Delivery Across the Isle of Man
           </h2>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/70">
             We deliver directly to your home or business anywhere on the
-            island, usually within three days.
+            island, usually within three days, with no delivery charge.
           </p>
 
           <div className="mt-8 space-y-4">
             <div className="flex items-center gap-3 text-white/85">
               <Truck className="h-5 w-5 text-[#63cd26]" />
-              <span className="text-sm font-medium">Delivery arranged across the Isle of Man</span>
+              <span className="text-sm font-medium">Free delivery arranged across the Isle of Man</span>
             </div>
             <div className="flex items-center gap-3 text-white/85">
               <CalendarClock className="h-5 w-5 text-[#63cd26]" />

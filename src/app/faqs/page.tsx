@@ -73,7 +73,7 @@ const faqGroups = [
       {
         question: "How are delivery charges calculated?",
         answer:
-          "[Delivery charge calculation to be confirmed]. Please get in touch for up-to-date information relevant to your order.",
+          "There are no delivery charges \u2013 delivery is free anywhere on the Isle of Man.",
       },
       {
         question: "Can I choose a specific delivery time?",

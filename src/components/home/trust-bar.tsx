@@ -4,8 +4,8 @@ import { FadeIn } from "@/components/motion/fade-in";
 const items = [
   {
     icon: Truck,
-    title: "Island-Wide Delivery",
-    description: "Delivery arranged to homes and businesses across the Isle of Man.",
+    title: "Free Island-Wide Delivery",
+    description: "Free delivery arranged to homes and businesses across the Isle of Man.",
   },
   {
     icon: CalendarClock,

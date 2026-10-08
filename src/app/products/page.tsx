@@ -123,11 +123,11 @@ export default function ProductsPage() {
             <div className="flex flex-col items-center justify-between gap-6 rounded-3xl bg-gradient-to-br from-[#18af8a] to-[#63cd26] px-8 py-10 text-center sm:flex-row sm:text-left">
               <div>
                 <h3 className="text-2xl font-extrabold text-white">
-                  Island-Wide Delivery Available
+                  Free Island-Wide Delivery Available
                 </h3>
                 <p className="mt-2 max-w-xl text-white/90">
                   We deliver directly to your door anywhere across the Isle
-                  of Man, usually within three days.
+                  of Man, usually within three days, with no delivery charge.
                 </p>
               </div>
               <Link
