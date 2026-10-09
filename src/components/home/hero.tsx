@@ -67,8 +67,7 @@ export function HomeHero() {
             className="mt-6 max-w-xl text-lg leading-relaxed text-white/75"
           >
             High-quality kiln-dried firewood, coal, and kindling with free
-            island-wide delivery across the Isle of Man, usually within
-            three days.
+            island-wide delivery across the Isle of Man.
           </motion.p>
 
           <motion.div
