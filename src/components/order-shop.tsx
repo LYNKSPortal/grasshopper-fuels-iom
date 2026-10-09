@@ -61,6 +61,7 @@ function ProductOrderCard({ product }: { product: Product }) {
                 productSlug={product.slug}
                 productName={product.name}
                 variant={variant}
+                image={product.variantImages?.[variant]}
                 priceLabel={product.variantPrices?.[variant]}
                 offerLabel={product.variantOffers?.[variant]}
                 bulkOffer={product.variantBulkOffers?.[variant]}
@@ -77,6 +78,7 @@ function VariantRow({
   productSlug,
   productName,
   variant,
+  image,
   priceLabel,
   offerLabel,
   bulkOffer,
@@ -84,6 +86,7 @@ function VariantRow({
   productSlug: string;
   productName: string;
   variant: string;
+  image?: string;
   priceLabel?: string;
   offerLabel?: string;
   bulkOffer?: CartBulkOffer;
@@ -126,21 +129,33 @@ function VariantRow({
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 py-3">
-      <div>
-        <p className="text-sm font-semibold text-[#202e25]">{variant}</p>
-        <p className="text-xs font-semibold text-[#18af8a]">
-          {priceLabel ?? "Price on enquiry"}
-        </p>
-        {offerLabel && (
-          <p className="mt-0.5 inline-flex items-center rounded-full bg-[#63cd26]/15 px-2 py-0.5 text-xs font-bold text-[#4d8f1b]">
-            {offerLabel}
-          </p>
+      <div className="flex items-center gap-3">
+        {image && (
+          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-[#f7faf9]">
+            <Image
+              src={image}
+              alt={`${productName} \u2013 ${variant}`}
+              fill
+              className="object-cover"
+            />
+          </div>
         )}
-        {cartQuantity > 0 && (
-          <p className="mt-0.5 text-xs font-medium text-[#202e25]/50">
-            {cartQuantity} in basket
+        <div>
+          <p className="text-sm font-semibold text-[#202e25]">{variant}</p>
+          <p className="text-xs font-semibold text-[#18af8a]">
+            {priceLabel ?? "Price on enquiry"}
           </p>
-        )}
+          {offerLabel && (
+            <p className="mt-0.5 inline-flex items-center rounded-full bg-[#63cd26]/15 px-2 py-0.5 text-xs font-bold text-[#4d8f1b]">
+              {offerLabel}
+            </p>
+          )}
+          {cartQuantity > 0 && (
+            <p className="mt-0.5 text-xs font-medium text-[#202e25]/50">
+              {cartQuantity} in basket
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-2">

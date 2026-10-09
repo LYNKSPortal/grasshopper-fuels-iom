@@ -6,6 +6,7 @@ export type Product = {
   image: string;
   keywords: string[];
   variants?: string[];
+  variantImages?: Record<string, string>;
   variantPrices?: Record<string, string>;
   variantOffers?: Record<string, string>;
   variantBulkOffers?: Record<string, { minQty: number; unitPrice: number }>;
@@ -192,6 +193,10 @@ export const products: Product[] = [
       "4kg kindling nets",
     ],
     variants: ["4kg Kindling Nets", "Firelighters"],
+    variantImages: {
+      "4kg Kindling Nets": "/Kindling-Nets-new.jpg",
+      Firelighters: "/natural-firelighters-02.jpg",
+    },
     variantPrices: {
       "4kg Kindling Nets": "£4.00 per net",
       Firelighters: "£6.99 per box of 50",
