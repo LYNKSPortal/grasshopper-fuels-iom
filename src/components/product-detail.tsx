@@ -116,14 +116,26 @@ export function ProductDetail({ product }: { product: Product }) {
           </FadeIn>
           {product.variants && (
             <FadeIn delay={0.1} className="mt-8 flex flex-wrap gap-3">
-              {product.variants.map((variant) => (
-                <span
-                  key={variant}
-                  className="inline-flex items-center rounded-full bg-[#18af8a]/10 px-4 py-2 text-sm font-semibold text-[#18af8a]"
-                >
-                  {variant}
-                </span>
-              ))}
+              {product.variants.map((variant) => {
+                const outOfStock = product.outOfStockVariants?.includes(variant);
+                return (
+                  <span
+                    key={variant}
+                    className={
+                      outOfStock
+                        ? "inline-flex items-center gap-1.5 rounded-full bg-black/5 px-4 py-2 text-sm font-semibold text-[#202e25]/40"
+                        : "inline-flex items-center rounded-full bg-[#18af8a]/10 px-4 py-2 text-sm font-semibold text-[#18af8a]"
+                    }
+                  >
+                    {variant}
+                    {outOfStock && (
+                      <span className="text-xs font-bold uppercase tracking-wide">
+                        (Out of Stock)
+                      </span>
+                    )}
+                  </span>
+                );
+              })}
             </FadeIn>
           )}
           {product.variantOffers && (
@@ -213,9 +225,9 @@ export function ProductDetail({ product }: { product: Product }) {
                 <div className="flex items-start gap-3">
                   <Truck className="mt-0.5 h-5 w-5 shrink-0 text-[#18af8a]" />
                   <p className="text-sm text-[#202e25]/65">
-                    Delivery is arranged across the Isle of Man, usually
-                    within three days. Charges, pack sizes, and stock
-                    availability are confirmed at the time of enquiry.
+                    Delivery is arranged across the Isle of Man. Pack
+                    sizes and stock availability are confirmed at the
+                    time of enquiry.
                   </p>
                 </div>
               </div>

@@ -17,7 +17,7 @@ import { FadeIn } from "@/components/motion/fade-in";
 export const metadata: Metadata = {
   title: "Delivery",
   description:
-    "Learn how free delivery works with Grasshopper Fuels, delivering kiln-dried logs, coal, and kindling across the Isle of Man within three days.",
+    "Learn how free delivery works with Grasshopper Fuels, delivering kiln-dried logs, coal, and kindling across the Isle of Man.",
   alternates: { canonical: "/delivery" },
 };
 
@@ -32,7 +32,7 @@ const deliverySteps = [
     icon: CalendarClock,
     title: "Fast Delivery",
     description:
-      "Most orders are delivered, usually within three days of your enquiry being confirmed.",
+      "Most orders are delivered promptly once your enquiry is confirmed.",
   },
   {
     icon: Warehouse,
@@ -56,7 +56,7 @@ const stockHighlights = [
   {
     icon: Truck,
     title: "Delivery Turnaround",
-    description: "Most orders are delivered, usually within three days.",
+    description: "Most orders are delivered promptly once confirmed.",
   },
 ];
 
@@ -79,7 +79,7 @@ const deliveryFaqs = [
   {
     question: "How quickly will my order arrive?",
     answer:
-      "Most orders are delivered within three days of your enquiry being confirmed. We don't guarantee specific days or time slots in advance.",
+      "Delivery timing is arranged directly with you once your enquiry is confirmed. We don't guarantee specific days or time slots in advance.",
   },
   {
     question: "Can I collect my order instead?",
@@ -99,7 +99,7 @@ export default function DeliveryPage() {
       <PageHero
         eyebrow="Delivery"
         title="Getting Your Order To You"
-        description="Free island-wide delivery across the Isle of Man, usually within three days. Delivery only \u2013 collection is not available."
+        description="Free island-wide delivery across the Isle of Man. Delivery only \u2013 collection is not available."
       />
       <Breadcrumbs items={[{ label: "Delivery" }]} />
 
@@ -108,10 +108,10 @@ export default function DeliveryPage() {
           <FadeIn>
             <p className="text-lg leading-relaxed text-[#202e25]/70">
               Grasshopper Fuels offers free island-wide delivery for our
-              range of kiln-dried logs, coal, and kindling, with fast
-              delivery usually within three days. Delivery only &mdash;
-              collection is not available. Our team will confirm the
-              details when you get in touch.
+              range of kiln-dried logs, coal, and kindling, with fast,
+              reliable delivery. Delivery only &mdash; collection is not
+              available. Our team will confirm the details when you get in
+              touch.
             </p>
           </FadeIn>
         </div>

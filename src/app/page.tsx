@@ -13,7 +13,7 @@ import { CtaBanner } from "@/components/cta-banner";
 export const metadata: Metadata = {
   title: "Kiln-Dried Logs, Coal & Kindling, Isle of Man",
   description:
-    "Grasshopper Fuels supplies premium kiln-dried logs, coal, and kindling across the Isle of Man, with free island-wide delivery within three days.",
+    "Grasshopper Fuels supplies premium kiln-dried logs, coal, and kindling across the Isle of Man, with free island-wide delivery.",
   alternates: { canonical: "/" },
 };
 

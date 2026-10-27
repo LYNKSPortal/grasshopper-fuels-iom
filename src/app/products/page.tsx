@@ -39,7 +39,7 @@ const benefits = [
   {
     icon: Truck,
     title: "Delivery Only",
-    description: "We deliver directly to your door across the Isle of Man, usually within three days.",
+    description: "We deliver directly to your door across the Isle of Man.",
   },
   {
     icon: ShieldCheck,
@@ -127,7 +127,7 @@ export default function ProductsPage() {
                 </h3>
                 <p className="mt-2 max-w-xl text-white/90">
                   We deliver directly to your door anywhere across the Isle
-                  of Man, usually within three days, with no delivery charge.
+                  of Man, with no delivery charge.
                 </p>
               </div>
               <Link

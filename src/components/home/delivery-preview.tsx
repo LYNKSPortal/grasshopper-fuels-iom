@@ -25,7 +25,7 @@ export function HomeDeliveryPreview() {
           </h2>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/70">
             We deliver directly to your home or business anywhere on the
-            island, usually within three days, with no delivery charge.
+            island, with no delivery charge.
           </p>
 
           <div className="mt-8 space-y-4">

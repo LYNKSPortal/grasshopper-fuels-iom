@@ -10,6 +10,7 @@ export type Product = {
   variantPrices?: Record<string, string>;
   variantOffers?: Record<string, string>;
   variantBulkOffers?: Record<string, { minQty: number; unitPrice: number }>;
+  outOfStockVariants?: string[];
   stockNote?: string;
   gallery: string[];
   intro: string;
@@ -46,6 +47,7 @@ export const products: Product[] = [
     variantBulkOffers: {
       Birch: { minQty: 50, unitPrice: 5.5 },
     },
+    outOfStockVariants: ["Ash"],
     stockNote: "18 trailer loads of logs currently in stock.",
     gallery: ["kiln-dried-logs-1", "kiln-dried-logs-2", "kiln-dried-logs-3"],
     intro:
@@ -69,7 +71,7 @@ export const products: Product[] = [
       {
         title: "Delivery Only \u2013 No Collection",
         description:
-          "We deliver logs directly to your door, usually within three days, anywhere across the Isle of Man. Collection is not available.",
+          "We deliver logs directly to your door anywhere across the Isle of Man. Collection is not available.",
       },
     ],
     suitableUses: [
@@ -102,7 +104,7 @@ export const products: Product[] = [
       {
         question: "Do you deliver logs, or can I collect?",
         answer:
-          "Logs are delivery only \u2013 collection is not available. We deliver directly to your door, usually within three days.",
+          "Logs are delivery only \u2013 collection is not available. We deliver directly to your door across the Isle of Man.",
       },
     ],
   },
@@ -141,7 +143,7 @@ export const products: Product[] = [
       {
         title: "Delivery Only \u2013 No Collection",
         description:
-          "We deliver coal directly to your door, usually within three days. Collection is not available.",
+          "We deliver coal directly to your door across the Isle of Man. Collection is not available.",
       },
       {
         title: "Guidance Available",
@@ -169,7 +171,7 @@ export const products: Product[] = [
       {
         question: "Is coal available for delivery?",
         answer:
-          "Yes, coal is delivered directly to your door across the Isle of Man, usually within three days. Collection is not available.",
+          "Yes, coal is delivered directly to your door across the Isle of Man. Collection is not available.",
       },
       {
         question: "What pack sizes and prices are available?",
@@ -198,8 +200,8 @@ export const products: Product[] = [
       Firelighters: "/natural-firelighters-02.jpg",
     },
     variantPrices: {
-      "4kg Kindling Nets": "£4.00 per net",
-      Firelighters: "£6.99 per box of 50",
+      "4kg Kindling Nets": "£4.50 per net",
+      Firelighters: "£6.50 per box of 50",
     },
     gallery: ["kindling-1", "kindling-2", "kindling-3"],
     intro:
@@ -223,7 +225,7 @@ export const products: Product[] = [
       {
         title: "Delivery Only \u2013 No Collection",
         description:
-          "Available as part of an island-wide delivery order, usually within three days. Collection is not available.",
+          "Available as part of an island-wide delivery order. Collection is not available.",
       },
     ],
     suitableUses: [
@@ -251,7 +253,7 @@ export const products: Product[] = [
       {
         question: "Do you deliver kindling across the Isle of Man?",
         answer:
-          "Yes, kindling nets and firelighters can be included in island-wide delivery orders, usually within three days. Collection is not available.",
+          "Yes, kindling nets and firelighters can be included in island-wide delivery orders. Collection is not available.",
       },
     ],
   },

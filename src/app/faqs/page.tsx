@@ -89,7 +89,7 @@ const faqGroups = [
       {
         question: "Can I collect my order?",
         answer:
-          "No, collection is not available. All orders are delivered directly to your door across the Isle of Man, usually within three days.",
+          "No, collection is not available. All orders are delivered directly to your door across the Isle of Man.",
       },
       {
         question: "How much stock do you have?",

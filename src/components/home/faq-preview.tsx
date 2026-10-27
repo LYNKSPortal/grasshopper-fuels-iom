@@ -13,7 +13,7 @@ const homeFaqs = [
   {
     question: "How quickly will my order arrive?",
     answer:
-      "Most orders are delivered within three days of your enquiry being confirmed. Delivery only \u2013 collection is not available.",
+      "Delivery timing is arranged directly with you once your enquiry is confirmed. Delivery only \u2013 collection is not available.",
   },
   {
     question: "What are kiln-dried logs?",

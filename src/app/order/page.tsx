@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { FadeIn } from "@/components/motion/fade-in";
 import { OrderShop } from "@/components/order-shop";
 import { products } from "@/lib/products";
 import { siteConfig } from "@/lib/site-config";
@@ -26,9 +25,7 @@ export default function OrderPage() {
 
       <section className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <OrderShop products={products} />
-          </FadeIn>
+          <OrderShop products={products} />
         </div>
       </section>
     </>
