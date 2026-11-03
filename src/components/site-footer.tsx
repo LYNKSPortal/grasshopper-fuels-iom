@@ -172,7 +172,7 @@ export function SiteFooter() {
                   Powered by
                 </span>
                 <Image
-                  src="/powered-by-wearelynks.png"
+                  src="/powered-by-wearelynks-col.png"
                   alt="We Are Lynks"
                   width={3000}
                   height={825}
