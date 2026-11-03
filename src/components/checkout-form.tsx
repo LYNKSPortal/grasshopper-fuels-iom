@@ -2,7 +2,7 @@
 
 import { useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { AlertCircle, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { AlertCircle, ArrowRight, Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -29,10 +29,10 @@ const initialState: FormState = {
 type Errors = Partial<Record<keyof FormState, string>>;
 
 export function CheckoutForm() {
-  const { items, subtotal, hasUnpricedItems, clearCart } = useCart();
+  const { items, subtotal, hasUnpricedItems } = useCart();
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "redirecting">("idle");
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -68,6 +68,7 @@ export function CheckoutForm() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (items.length === 0) return;
+    if (hasUnpricedItems) return;
     if (!validate()) return;
     setSubmitError(null);
     setStatus("submitting");
@@ -84,6 +85,11 @@ export function CheckoutForm() {
           order: orderSummary,
           address: form.address,
           message: form.message,
+          items: items.map((item) => ({
+            productSlug: item.productSlug,
+            variantLabel: item.variantLabel,
+            quantity: item.quantity,
+          })),
         }),
       });
 
@@ -93,34 +99,56 @@ export function CheckoutForm() {
         return;
       }
 
-      clearCart();
-      setStatus("success");
-      return;
+      const { order } = await res.json();
+
+      if (!order?.amountToCollect) {
+        setSubmitError(
+          "We couldn't calculate a total for your basket. Please contact us to arrange payment."
+        );
+        setStatus("idle");
+        return;
+      }
+
+      const payRes = await fetch("/api/payments/create-job", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: order.id }),
+      });
+
+      const payData = await payRes.json().catch(() => null);
+
+      if (!payRes.ok || !payData?.redirectUrl) {
+        setSubmitError(
+          payData?.error ??
+            "Something went wrong starting your payment. Please try again or contact us."
+        );
+        setStatus("idle");
+        return;
+      }
+
+      // Don't clear the basket yet - the customer may cancel or fail
+      // payment on Cashflows' page and come back. The basket is cleared on
+      // /checkout/complete once payment is confirmed successful.
+      setStatus("redirecting");
+      window.location.href = payData.redirectUrl;
     } catch {
       setSubmitError("Something went wrong sending your enquiry. Please try again.");
       setStatus("idle");
     }
   }
 
-  if (status === "success") {
+  if (status === "redirecting") {
     return (
       <div
         role="status"
         className="flex flex-col items-center gap-4 rounded-3xl border border-[#18af8a]/20 bg-[#18af8a]/5 p-10 text-center"
       >
-        <CheckCircle2 className="h-12 w-12 text-[#18af8a]" />
-        <h3 className="text-xl font-bold text-[#202e25]">Order Enquiry Sent</h3>
+        <Loader2 className="h-10 w-10 animate-spin text-[#18af8a]" />
+        <h3 className="text-xl font-bold text-[#202e25]">Redirecting to Secure Payment</h3>
         <p className="max-w-sm text-sm text-[#202e25]/65">
-          Thank you for your order enquiry. This does not automatically
-          confirm your order &mdash; Grasshopper Fuels will be in touch to
-          confirm availability, pricing, and delivery details.
+          Please wait while we take you to our secure payment page to
+          complete your order.
         </p>
-        <Link
-          href="/order"
-          className="mt-2 text-sm font-semibold text-[#18af8a] underline underline-offset-4"
-        >
-          Place another order
-        </Link>
       </div>
     );
   }
@@ -145,12 +173,42 @@ export function CheckoutForm() {
     );
   }
 
+  if (hasUnpricedItems) {
+    return (
+      <div className="flex flex-col items-center gap-4 rounded-3xl border border-black/5 bg-[#f7faf9] p-10 text-center">
+        <h3 className="text-xl font-bold text-[#202e25]">
+          Some Items Need a Quote
+        </h3>
+        <p className="max-w-sm text-sm text-[#202e25]/60">
+          One or more items in your basket are priced on enquiry and
+          can&rsquo;t be paid for online yet. Please remove them from your
+          basket, or contact us directly to arrange pricing and payment.
+        </p>
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href="/basket"
+            className="inline-flex items-center gap-2 rounded-full border border-input px-6 py-3 text-sm font-bold text-[#202e25] hover:bg-muted"
+          >
+            Edit Basket
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-[#18af8a] px-6 py-3 text-sm font-bold text-white shadow-md hover:bg-[#139775]"
+          >
+            Contact Us
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form noValidate onSubmit={handleSubmit} className="space-y-6">
       <p className="rounded-2xl bg-[#18af8a]/5 p-4 text-sm text-[#202e25]/70">
-        Submitting this form sends an <strong>enquiry</strong> only. It does
-        not automatically confirm your order &mdash; Grasshopper Fuels will
-        respond to confirm availability, pricing, and next steps.
+        Submitting this form will take you to our secure payment page to pay
+        the total below by card. Your order is confirmed once payment is
+        completed.
       </p>
 
       {submitError && (
@@ -187,18 +245,12 @@ export function CheckoutForm() {
         </div>
         <div className="mt-3 flex items-center justify-between border-t border-black/5 pt-3">
           <span className="text-sm font-bold text-[#202e25]">
-            Estimated Subtotal
+            Total to Pay
           </span>
           <span className="text-sm font-extrabold text-[#202e25]">
             £{subtotal.toFixed(2)}
           </span>
         </div>
-        {hasUnpricedItems && (
-          <p className="mt-2 text-xs text-[#202e25]/50">
-            Some items are priced on enquiry and are not included in this
-            estimate.
-          </p>
-        )}
         <Link
           href="/basket"
           className="mt-3 inline-block text-xs font-semibold text-[#18af8a] underline underline-offset-4"
@@ -298,7 +350,7 @@ export function CheckoutForm() {
         className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#18af8a] px-8 py-4 text-base font-bold text-white shadow-md transition-colors hover:bg-[#139775] disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
       >
         {status === "submitting" && <Loader2 className="h-4 w-4 animate-spin" />}
-        Send Order Enquiry
+        Proceed to Payment
       </button>
     </form>
   );

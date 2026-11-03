@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createOrder, getOrders } from "@/lib/orders";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { computeOrderTotal, type PricedCartItem } from "@/lib/pricing";
 
 export async function GET() {
   const authed = await isAdminAuthenticated();
@@ -37,6 +38,25 @@ export async function POST(request: NextRequest) {
     }
   }
 
+  let amountToCollect: string | null = null;
+  if (Array.isArray(body.items)) {
+    const items: PricedCartItem[] = body.items
+      .filter(
+        (item: unknown): item is Record<string, unknown> =>
+          typeof item === "object" && item !== null
+      )
+      .map((item: Record<string, unknown>) => ({
+        productSlug: String(item.productSlug ?? ""),
+        variantLabel: String(item.variantLabel ?? ""),
+        quantity: Number(item.quantity ?? 0),
+      }));
+
+    const { amount, allPriced } = computeOrderTotal(items);
+    if (allPriced && amount > 0) {
+      amountToCollect = amount.toFixed(2);
+    }
+  }
+
   const order = await createOrder({
     firstName: body.firstName,
     lastName: body.lastName,
@@ -45,6 +65,7 @@ export async function POST(request: NextRequest) {
     order: body.order,
     address: body.address,
     message: body.message,
+    amountToCollect,
   });
 
   return NextResponse.json({ order }, { status: 201 });

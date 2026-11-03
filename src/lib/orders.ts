@@ -1,8 +1,15 @@
 import { randomUUID } from "crypto";
 import { query, withConnection } from "@/lib/db";
-import type { Customer, NewOrderInput, Order, OrderStatus, StatusNote } from "@/lib/order-types";
+import type {
+  Customer,
+  NewOrderInput,
+  Order,
+  OrderStatus,
+  PaymentStatus,
+  StatusNote,
+} from "@/lib/order-types";
 
-export type { Customer, NewOrderInput, Order, OrderStatus };
+export type { Customer, NewOrderInput, Order, OrderStatus, PaymentStatus };
 export { orderStatuses } from "@/lib/order-types";
 export type { StatusNote } from "@/lib/order-types";
 
@@ -17,6 +24,10 @@ type OrderRow = {
   order_summary: string;
   address: string;
   message: string;
+  payment_status: PaymentStatus;
+  payment_job_reference: string | null;
+  payment_reference: string | null;
+  amount_to_collect: string | null;
 };
 
 type StatusNoteRow = {
@@ -40,6 +51,10 @@ function toOrder(row: OrderRow, notes: StatusNoteRow[]): Order {
     address: row.address,
     message: row.message,
     statusNotes: notes.map(toStatusNote),
+    paymentStatus: row.payment_status,
+    paymentJobReference: row.payment_job_reference,
+    paymentReference: row.payment_reference,
+    amountToCollect: row.amount_to_collect,
   };
 }
 
@@ -50,6 +65,18 @@ function toStatusNote(row: StatusNoteRow): StatusNote {
     note: row.note,
     createdAt: row.created_at.toISOString(),
   };
+}
+
+export async function getOrderById(id: string): Promise<Order | null> {
+  const { rows } = await query<OrderRow>("SELECT * FROM orders WHERE id = $1", [id]);
+  if (rows.length === 0) return null;
+
+  const { rows: noteRows } = await query<StatusNoteRow>(
+    "SELECT * FROM order_status_notes WHERE order_id = $1 ORDER BY created_at ASC",
+    [id]
+  );
+
+  return toOrder(rows[0], noteRows);
 }
 
 export async function getOrders(): Promise<Order[]> {
@@ -80,8 +107,8 @@ export async function createOrder(input: NewOrderInput): Promise<Order> {
   const id = randomUUID();
   const { rows } = await query<OrderRow>(
     `INSERT INTO orders
-      (id, first_name, last_name, email, phone, order_summary, address, message)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      (id, first_name, last_name, email, phone, order_summary, address, message, amount_to_collect)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
      RETURNING *`,
     [
       id,
@@ -92,8 +119,39 @@ export async function createOrder(input: NewOrderInput): Promise<Order> {
       input.order,
       input.address,
       input.message,
+      input.amountToCollect,
     ]
   );
+  return toOrder(rows[0], []);
+}
+
+export async function attachPaymentJob(
+  id: string,
+  params: { paymentJobReference: string; paymentReference: string; amountToCollect: string }
+): Promise<Order | null> {
+  const { rows } = await query<OrderRow>(
+    `UPDATE orders
+     SET payment_status = 'pending',
+         payment_job_reference = $1,
+         payment_reference = $2,
+         amount_to_collect = $3
+     WHERE id = $4
+     RETURNING *`,
+    [params.paymentJobReference, params.paymentReference, params.amountToCollect, id]
+  );
+  if (rows.length === 0) return null;
+  return toOrder(rows[0], []);
+}
+
+export async function updatePaymentStatusByJobReference(
+  paymentJobReference: string,
+  paymentStatus: PaymentStatus
+): Promise<Order | null> {
+  const { rows } = await query<OrderRow>(
+    `UPDATE orders SET payment_status = $1 WHERE payment_job_reference = $2 RETURNING *`,
+    [paymentStatus, paymentJobReference]
+  );
+  if (rows.length === 0) return null;
   return toOrder(rows[0], []);
 }
 

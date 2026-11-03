@@ -55,6 +55,32 @@ function splitOrderItems(order: string): string[] {
     .filter(Boolean);
 }
 
+const paymentStatusStyles: Record<Order["paymentStatus"], string> = {
+  unpaid: "bg-black/5 text-[#202e25]/50",
+  pending: "bg-amber-50 text-amber-700",
+  paid: "bg-[#18af8a]/10 text-[#18af8a]",
+  failed: "bg-red-50 text-red-600",
+  cancelled: "bg-black/5 text-[#202e25]/50",
+};
+
+const paymentStatusLabels: Record<Order["paymentStatus"], string> = {
+  unpaid: "Unpaid",
+  pending: "Payment Pending",
+  paid: "Paid",
+  failed: "Payment Failed",
+  cancelled: "Payment Cancelled",
+};
+
+function PaymentBadge({ status }: { status: Order["paymentStatus"] }) {
+  return (
+    <span
+      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold ${paymentStatusStyles[status]}`}
+    >
+      {paymentStatusLabels[status]}
+    </span>
+  );
+}
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleString("en-GB", {
     day: "2-digit",
@@ -159,6 +185,14 @@ export function OrdersTable({
                       <p className="text-xs font-medium text-[#202e25]/50">
                         {formatDate(order.createdAt)}
                       </p>
+                      <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                        <PaymentBadge status={order.paymentStatus} />
+                        {order.amountToCollect && (
+                          <span className="text-xs font-semibold text-[#202e25]/60">
+                            £{order.amountToCollect}
+                          </span>
+                        )}
+                      </div>
                     </div>
                     <OrderStatusSelect orderId={order.id} status={order.status} />
                   </div>
@@ -222,6 +256,7 @@ export function OrdersTable({
                     <SortableHeader label="Order" sortKey="order" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
                     <SortableHeader label="Address" sortKey="address" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
                     <SortableHeader label="Notes" sortKey="notes" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
+                    <th className="px-6 py-3">Payment</th>
                     <SortableHeader label="Status" sortKey="status" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
                   </tr>
                 </thead>
@@ -258,6 +293,14 @@ export function OrdersTable({
                                 <span className="text-[#202e25]/60">{sn.note}</span>
                               </div>
                             ))}
+                          </div>
+                        )}
+                      </td>
+                      <td className="px-6 py-4">
+                        <PaymentBadge status={order.paymentStatus} />
+                        {order.amountToCollect && (
+                          <div className="mt-1 text-xs font-semibold text-[#202e25]/60">
+                            £{order.amountToCollect}
                           </div>
                         )}
                       </td>

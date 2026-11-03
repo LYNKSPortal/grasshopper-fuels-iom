@@ -18,6 +18,16 @@ CREATE TABLE IF NOT EXISTS orders (
 CREATE INDEX IF NOT EXISTS orders_email_idx ON orders (email);
 CREATE INDEX IF NOT EXISTS orders_created_at_idx ON orders (created_at DESC);
 
+-- Cashflows Hosted Checkout Pages payment tracking.
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_status TEXT NOT NULL DEFAULT 'unpaid'
+  CHECK (payment_status IN ('unpaid', 'pending', 'paid', 'failed', 'cancelled'));
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_job_reference TEXT;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_reference TEXT;
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS amount_to_collect NUMERIC(10, 2);
+
+CREATE INDEX IF NOT EXISTS orders_payment_job_reference_idx
+  ON orders (payment_job_reference) WHERE payment_job_reference IS NOT NULL;
+
 -- Preserves the original human-readable ID of orders imported from the
 -- legacy JSON file store, since orders.id is now a real UUID.
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS legacy_id TEXT;

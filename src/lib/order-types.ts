@@ -1,5 +1,7 @@
 export type OrderStatus = "pending" | "in_process" | "done";
 
+export type PaymentStatus = "unpaid" | "pending" | "paid" | "failed" | "cancelled";
+
 export type StatusNote = {
   id: string;
   status: OrderStatus;
@@ -19,9 +21,22 @@ export type Order = {
   address: string;
   message: string;
   statusNotes: StatusNote[];
+  paymentStatus: PaymentStatus;
+  paymentJobReference: string | null;
+  paymentReference: string | null;
+  amountToCollect: string | null;
 };
 
-export type NewOrderInput = Omit<Order, "id" | "createdAt" | "status" | "statusNotes">;
+export type NewOrderInput = Omit<
+  Order,
+  | "id"
+  | "createdAt"
+  | "status"
+  | "statusNotes"
+  | "paymentStatus"
+  | "paymentJobReference"
+  | "paymentReference"
+>;
 
 export type Customer = {
   email: string;
