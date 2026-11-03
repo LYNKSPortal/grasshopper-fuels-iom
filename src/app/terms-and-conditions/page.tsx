@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/terms-and-conditions" },
 };
 
-const LAST_UPDATED = "30 October 2026";
+const LAST_UPDATED = "3 November 2026";
 
 type Section = {
   id: string;
@@ -39,32 +39,40 @@ const sections: Section[] = [
     title: "2. Acceptance of These Terms",
     body: (
       <p>
-        By using this website or submitting an enquiry through our contact
-        form, basket, or checkout page, you agree to be bound by these terms
-        and conditions. If you do not agree to these terms, please do not use
-        this website.
+        By using this website, submitting an enquiry through our contact
+        form, or placing an order through our basket and checkout, you agree
+        to be bound by these terms and conditions. If you do not agree to
+        these terms, please do not use this website.
       </p>
     ),
   },
   {
     id: "orders",
-    title: "3. Orders and Enquiries",
+    title: "3. Orders and Payment",
     body: (
       <>
         <p>
-          Our website allows you to browse our products, add items to a
-          basket, and submit an order enquiry. Submitting an enquiry through
-          the website{" "}
-          <strong>does not create a binding contract of sale</strong> and
-          does not automatically confirm your order. Our team will contact
-          you directly, usually by phone or email, to confirm product
-          availability, final pricing, delivery details, and payment.
+          Our website allows you to browse our products, add priced items to
+          a basket, and pay for them at checkout. When you complete checkout,
+          you are redirected to a secure payment page hosted by our payment
+          provider, Cashflows, to pay by card. A contract between you and us
+          for the sale of those goods is formed once your payment has been
+          successfully processed.
         </p>
         <p className="mt-3">
-          A contract between you and us for the sale of goods is only formed
-          once we have confirmed your order to you. We reserve the right to
-          decline any order enquiry, for example where stock is unavailable
-          or we are unable to deliver to your location.
+          Some products or variants are marked &ldquo;Price on
+          enquiry&rdquo; and cannot be paid for through checkout. For these,
+          please contact us directly &mdash; submitting an enquiry through
+          our contact page{" "}
+          <strong>does not create a binding contract of sale</strong>, and
+          our team will contact you to confirm availability, pricing, and
+          delivery before any payment is taken.
+        </p>
+        <p className="mt-3">
+          We reserve the right to decline or cancel any order, for example
+          where stock is unavailable, we are unable to deliver to your
+          location, or we suspect fraud. If we decline or cancel a paid
+          order, we will refund your payment in full.
         </p>
       </>
     ),
@@ -117,12 +125,22 @@ const sections: Section[] = [
     id: "payment",
     title: "6. Payment",
     body: (
-      <p>
-        Payment arrangements are confirmed directly with you once your order
-        has been confirmed and before or at the time of delivery. We will
-        let you know the available payment methods when we confirm your
-        order.
-      </p>
+      <>
+        <p>
+          Payment for priced items is collected in full at checkout, by card,
+          through our payment provider, Cashflows (Cashflows Europe Limited,
+          authorised and regulated by the UK Financial Conduct Authority
+          under the Electronic Money Regulations 2011). Your card details
+          are entered directly on Cashflows&rsquo; secure payment page and
+          are never seen, processed, or stored by us.
+        </p>
+        <p className="mt-3">
+          For items marked &ldquo;Price on enquiry&rdquo;, payment
+          arrangements are confirmed directly with you once your order has
+          been confirmed and before or at the time of delivery. We will let
+          you know the available payment methods when we confirm your order.
+        </p>
+      </>
     ),
   },
   {
@@ -131,9 +149,10 @@ const sections: Section[] = [
     body: (
       <>
         <p>
-          You may cancel an order enquiry at any time before we have
-          confirmed and dispatched it, by contacting us using the details
-          below.
+          You may cancel a paid order at any time before it has been
+          dispatched by contacting us using the details below. We will
+          refund your payment in full to your original payment method via
+          Cashflows.
         </p>
         <p className="mt-3">
           If you receive goods that are faulty, damaged, or not as described,
@@ -196,7 +215,7 @@ const sections: Section[] = [
         example to reflect changes to our products, services, or legal
         requirements. The &ldquo;last updated&rdquo; date at the top of this
         page shows when they were last revised. The version in force at the
-        time you submit an order enquiry will apply.
+        time you place an order or submit an enquiry will apply.
       </p>
     ),
   },

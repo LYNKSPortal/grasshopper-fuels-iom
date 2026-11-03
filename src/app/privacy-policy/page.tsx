@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy-policy" },
 };
 
-const LAST_UPDATED = "30 October 2026";
+const LAST_UPDATED = "3 November 2026";
 
 type Section = {
   id: string;
@@ -61,11 +61,14 @@ const sections: Section[] = [
           </li>
         </ul>
         <p className="mt-3">
-          We do not currently collect or process any payment card details
-          through this website. Orders submitted online are enquiries only
-          &mdash; our team contacts you directly to confirm availability,
-          pricing, and delivery, and payment is arranged separately at that
-          point.
+          <strong>Payment details</strong> &mdash; when you check out, you are
+          redirected to a secure payment page hosted by our payment provider,
+          Cashflows, to enter your card details. We never see, receive, or
+          store your full card number, expiry date, or security code
+          &mdash; these are entered directly into Cashflows&rsquo; secure,
+          PCI DSS-compliant payment page. We only receive confirmation of
+          whether your payment was successful, together with a payment
+          reference, which we use to confirm and fulfil your order.
         </p>
         <p className="mt-3">
           We also use your basket (the items you add before checking out),
@@ -110,6 +113,14 @@ const sections: Section[] = [
           We only share it with:
         </p>
         <ul className="mt-3 list-disc space-y-2 pl-5">
+          <li>
+            <strong>Cashflows</strong>, our payment service provider, who
+            processes your card payment securely. We share your name, email
+            address, and order amount with Cashflows so they can process your
+            payment; your card details are given directly to Cashflows and
+            never pass through our systems. Cashflows is authorised and
+            regulated by the UK Financial Conduct Authority.
+          </li>
           <li>
             Trusted service providers who host our website and database on
             our behalf (currently Vercel and Amazon Web Services), strictly
@@ -212,8 +223,10 @@ const sections: Section[] = [
         We take reasonable technical and organisational measures to protect
         the personal information we hold, including encrypted connections
         between your browser and our website, and database access that is
-        restricted to authorised systems only. No method of transmission or
-        storage is completely secure, but we work to protect your
+        restricted to authorised systems only. Card payments are handled
+        entirely by Cashflows on their PCI DSS-compliant payment page, so
+        your card details never reach our servers. No method of transmission
+        or storage is completely secure, but we work to protect your
         information to an appropriate standard.
       </p>
     ),
