@@ -143,6 +143,16 @@ export function SiteFooter() {
                 className="h-5 w-auto"
               />
             </div>
+            <div className="flex items-center gap-2">
+              <span>Powered by</span>
+              <Image
+                src="/powered-by-wearelynks.png"
+                alt="We Are Lynks"
+                width={3000}
+                height={825}
+                className="h-5 w-auto"
+              />
+            </div>
             <div className="flex gap-6">
               <Link href="/privacy-policy" className="hover:text-white">
                 Privacy Policy
