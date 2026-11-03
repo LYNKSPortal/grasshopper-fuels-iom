@@ -127,32 +127,39 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 text-xs text-white/50 sm:flex-row">
-          <p>
-            &copy; {year} {siteConfig.legalName}. All rights reserved.
-            Registered in the Isle of Man, Company No. {siteConfig.companyNumber}.
-          </p>
-          <div className="flex flex-col items-center gap-6 sm:flex-row">
-            <div className="flex items-center gap-2">
-              <span>Payments by</span>
+        <div className="mt-14 border-t border-white/10 pt-10">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+            <div className="flex items-center gap-3 rounded-2xl bg-white/5 px-6 py-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-white/50">
+                Payments by
+              </span>
               <Image
                 src="/ripple-logo.webp"
                 alt="Ripple"
                 width={1429}
                 height={521}
-                className="h-5 w-auto"
+                className="h-8 w-auto sm:h-9"
               />
             </div>
-            <div className="flex items-center gap-2">
-              <span>Powered by</span>
+            <div className="flex items-center gap-3 rounded-2xl bg-white/5 px-6 py-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-white/50">
+                Powered by
+              </span>
               <Image
                 src="/powered-by-wearelynks.png"
                 alt="We Are Lynks"
                 width={3000}
                 height={825}
-                className="h-5 w-auto"
+                className="h-8 w-auto sm:h-9"
               />
             </div>
+          </div>
+
+          <div className="mt-8 flex flex-col items-center justify-between gap-4 text-xs text-white/50 sm:flex-row">
+            <p>
+              &copy; {year} {siteConfig.legalName}. All rights reserved.
+              Registered in the Isle of Man, Company No. {siteConfig.companyNumber}.
+            </p>
             <div className="flex gap-6">
               <Link href="/privacy-policy" className="hover:text-white">
                 Privacy Policy
