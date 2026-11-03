@@ -42,9 +42,14 @@ export const metadata: Metadata = {
     images: ["/hero-bg-new.jpg"],
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon/favicon.ico", sizes: "any" },
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: [{ url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
+  manifest: "/favicon/site.webmanifest",
 };
 
 const localBusinessJsonLd = {
