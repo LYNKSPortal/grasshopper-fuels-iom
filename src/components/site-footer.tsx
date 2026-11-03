@@ -129,7 +129,7 @@ export function SiteFooter() {
 
         <div className="mt-14 border-t border-white/10 pt-10">
           <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
-            <div className="flex flex-col items-center gap-3 text-xs text-white/50 sm:flex-row sm:gap-6 lg:items-start">
+            <div className="flex flex-col items-center gap-3 text-center text-xs text-white/50 lg:items-start lg:text-left">
               <p>
                 &copy; {year} {siteConfig.legalName}. All rights reserved.
                 Registered in the Isle of Man, Company No. {siteConfig.companyNumber}.
