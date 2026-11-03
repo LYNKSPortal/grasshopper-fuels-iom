@@ -63,7 +63,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300",
+        "fixed top-10 z-50 w-full transition-all duration-300",
         isTransparent
           ? "bg-transparent py-5"
           : "bg-white/95 backdrop-blur-md shadow-sm py-3"
