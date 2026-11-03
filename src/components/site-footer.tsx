@@ -145,7 +145,12 @@ export function SiteFooter() {
             </div>
 
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
-              <div className="flex items-center gap-3 rounded-2xl bg-white/5 px-6 py-4">
+              <a
+                href="https://startyourripple.co.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-2xl bg-white/5 px-6 py-4 transition-colors hover:bg-white/10"
+              >
                 <span className="text-xs font-bold uppercase tracking-wider text-white/50">
                   Payments by
                 </span>
@@ -156,8 +161,13 @@ export function SiteFooter() {
                   height={521}
                   className="h-8 w-auto sm:h-9"
                 />
-              </div>
-              <div className="flex items-center gap-3 rounded-2xl bg-white/5 px-6 py-4">
+              </a>
+              <a
+                href="https://www.wearelynks.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-2xl bg-white/5 px-6 py-4 transition-colors hover:bg-white/10"
+              >
                 <span className="text-xs font-bold uppercase tracking-wider text-white/50">
                   Powered by
                 </span>
@@ -168,7 +178,7 @@ export function SiteFooter() {
                   height={825}
                   className="h-8 w-auto sm:h-9"
                 />
-              </div>
+              </a>
             </div>
           </div>
         </div>
