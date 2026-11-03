@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/products/kiln-dried-logs",
     "/products/coal",
     "/products/kindling",
+    "/order",
     "/delivery",
     "/about",
     "/faqs",

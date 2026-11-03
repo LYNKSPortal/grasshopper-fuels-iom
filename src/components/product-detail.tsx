@@ -10,8 +10,25 @@ import { products, type Product } from "@/lib/products";
 import { siteConfig } from "@/lib/site-config";
 import Image from "next/image";
 
+function getLowestPrice(product: Product): number | null {
+  if (!product.variantPrices) return null;
+  const prices = Object.values(product.variantPrices)
+    .map((label) => {
+      const match = label.match(/[\d.]+/);
+      return match ? parseFloat(match[0]) : null;
+    })
+    .filter((n): n is number => n !== null);
+  return prices.length > 0 ? Math.min(...prices) : null;
+}
+
+function isFullyOutOfStock(product: Product): boolean {
+  if (!product.variants || product.variants.length === 0) return false;
+  return product.variants.every((v) => product.outOfStockVariants?.includes(v));
+}
+
 export function ProductDetail({ product }: { product: Product }) {
   const related = products.filter((p) => p.slug !== product.slug);
+  const lowestPrice = getLowestPrice(product);
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -23,16 +40,26 @@ export function ProductDetail({ product }: { product: Product }) {
       "@type": "Brand",
       name: siteConfig.name,
     },
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      priceCurrency: "GBP",
-      url: `${siteConfig.url}/products/${product.slug}`,
-      areaServed: {
-        "@type": "Place",
-        name: "Isle of Man",
-      },
-    },
+    // Only include an Offer when we have a real price - Google requires a
+    // valid price for Product rich results, and most variants here are
+    // priced in GBP with a couple marked "Price on enquiry".
+    ...(lowestPrice !== null
+      ? {
+          offers: {
+            "@type": "Offer",
+            availability: isFullyOutOfStock(product)
+              ? "https://schema.org/OutOfStock"
+              : "https://schema.org/InStock",
+            price: lowestPrice.toFixed(2),
+            priceCurrency: "GBP",
+            url: `${siteConfig.url}/products/${product.slug}`,
+            areaServed: {
+              "@type": "Place",
+              name: "Isle of Man",
+            },
+          },
+        }
+      : {}),
   };
 
   const faqJsonLd = {
