@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, Inbox } from "lucide-react";
 import { OrderStatusSelect } from "@/components/admin/order-status-select";
+import { RefreshPaymentButton } from "@/components/admin/refresh-payment-button";
 import { SortableHeader, type SortDirection } from "@/components/admin/sortable-header";
 import type { Order } from "@/lib/order-types";
 
@@ -65,10 +66,10 @@ const paymentStatusStyles: Record<Order["paymentStatus"], string> = {
 
 const paymentStatusLabels: Record<Order["paymentStatus"], string> = {
   unpaid: "Unpaid",
-  pending: "Payment Pending",
-  paid: "Paid",
-  failed: "Payment Failed",
-  cancelled: "Payment Cancelled",
+  pending: "Payment Pending via Cashflows",
+  paid: "Payment Taken via Cashflows",
+  failed: "Payment Failed via Cashflows",
+  cancelled: "Payment Cancelled via Cashflows",
 };
 
 function PaymentBadge({ status }: { status: Order["paymentStatus"] }) {
@@ -192,6 +193,9 @@ export function OrdersTable({
                             £{order.amountToCollect}
                           </span>
                         )}
+                        {order.paymentJobReference && order.paymentStatus !== "paid" && (
+                          <RefreshPaymentButton orderId={order.id} />
+                        )}
                       </div>
                     </div>
                     <OrderStatusSelect orderId={order.id} status={order.status} />
@@ -301,6 +305,11 @@ export function OrdersTable({
                         {order.amountToCollect && (
                           <div className="mt-1 text-xs font-semibold text-[#202e25]/60">
                             £{order.amountToCollect}
+                          </div>
+                        )}
+                        {order.paymentJobReference && order.paymentStatus !== "paid" && (
+                          <div className="mt-1">
+                            <RefreshPaymentButton orderId={order.id} />
                           </div>
                         )}
                       </td>

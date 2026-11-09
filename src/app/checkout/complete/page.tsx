@@ -4,7 +4,7 @@ import { CheckCircle2, XCircle, AlertTriangle, ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ClearCartOnSuccess } from "@/components/clear-cart-on-success";
-import { getOrderById } from "@/lib/orders";
+import { getOrderById, syncPaymentStatus } from "@/lib/orders";
 
 export const metadata: Metadata = {
   title: "Payment Complete",
@@ -21,11 +21,26 @@ export default async function CheckoutCompletePage({
   searchParams: Promise<{ order?: string; status?: string }>;
 }) {
   const { order: orderId, status } = await searchParams;
-  const order = orderId ? await getOrderById(orderId) : null;
-  const returnStatus: ReturnStatus =
+  const initialOrder = orderId ? await getOrderById(orderId) : null;
+  // Don't rely solely on Cashflows' notification webhook (which may not be
+  // registered, or may be delayed) - actively re-check the real payment
+  // status with Cashflows now, while the customer is on this page.
+  const order = initialOrder ? await syncPaymentStatus(initialOrder) : null;
+
+  const urlStatus: ReturnStatus =
     status === "success" || status === "failed" || status === "cancelled"
       ? status
       : "failed";
+  // Trust our own confirmed payment status over the URL status Cashflows
+  // redirected us with, where we have one.
+  const returnStatus: ReturnStatus =
+    order?.paymentStatus === "paid"
+      ? "success"
+      : order?.paymentStatus === "cancelled"
+      ? "cancelled"
+      : order?.paymentStatus === "failed"
+      ? "failed"
+      : urlStatus;
 
   const content = {
     success: {

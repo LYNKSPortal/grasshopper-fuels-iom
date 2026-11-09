@@ -79,6 +79,39 @@ export async function getOrderById(id: string): Promise<Order | null> {
   return toOrder(rows[0], noteRows);
 }
 
+/**
+ * Re-checks an order's payment status directly with Cashflows and updates
+ * the database if it has changed. We can't rely solely on Cashflows'
+ * notification webhook (e.g. if it isn't registered in Cashflows Portal, or
+ * delivery is delayed), so this is called both when a customer returns from
+ * the Cashflows payment page and from the admin "Refresh payment status"
+ * action, to keep orders accurate even if the webhook never arrives.
+ */
+export async function syncPaymentStatus(order: Order): Promise<Order> {
+  if (
+    !order.paymentJobReference ||
+    !order.paymentReference ||
+    order.paymentStatus === "paid"
+  ) {
+    return order;
+  }
+
+  try {
+    const { retrievePayment, mapCashflowsStatus } = await import("@/lib/cashflows");
+    const result = await retrievePayment(order.paymentJobReference, order.paymentReference);
+    const newStatus = mapCashflowsStatus(result.status);
+    if (newStatus === order.paymentStatus) return order;
+    const updated = await updatePaymentStatusByJobReference(
+      order.paymentJobReference,
+      newStatus
+    );
+    return updated ?? order;
+  } catch (err) {
+    console.error("syncPaymentStatus failed:", err);
+    return order;
+  }
+}
+
 export async function getOrders(): Promise<Order[]> {
   const { rows: orderRows } = await query<OrderRow>(
     "SELECT * FROM orders ORDER BY created_at DESC"
