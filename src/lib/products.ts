@@ -47,7 +47,7 @@ export const products: Product[] = [
     variantBulkOffers: {
       Birch: { minQty: 50, unitPrice: 5.5 },
     },
-    outOfStockVariants: ["Ash"],
+    outOfStockVariants: ["Oak", "Ash"],
     stockNote: "18 trailer loads of logs currently in stock.",
     gallery: ["kiln-dried-logs-1", "kiln-dried-logs-2", "kiln-dried-logs-3"],
     intro:
