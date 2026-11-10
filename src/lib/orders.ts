@@ -188,6 +188,13 @@ export async function updatePaymentStatusByJobReference(
   return toOrder(rows[0], []);
 }
 
+export async function deleteOrder(id: string): Promise<boolean> {
+  // order_status_notes has ON DELETE CASCADE on order_id, so its notes are
+  // removed automatically.
+  const { rowCount } = await query("DELETE FROM orders WHERE id = $1", [id]);
+  return (rowCount ?? 0) > 0;
+}
+
 export async function updateOrderStatus(
   id: string,
   status: OrderStatus,

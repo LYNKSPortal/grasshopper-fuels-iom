@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, Inbox } from "lucide-react";
 import { OrderStatusSelect } from "@/components/admin/order-status-select";
 import { RefreshPaymentButton } from "@/components/admin/refresh-payment-button";
+import { DeleteOrderButton } from "@/components/admin/delete-order-button";
 import { SortableHeader, type SortDirection } from "@/components/admin/sortable-header";
 import type { Order } from "@/lib/order-types";
 
@@ -198,7 +199,13 @@ export function OrdersTable({
                         )}
                       </div>
                     </div>
-                    <OrderStatusSelect orderId={order.id} status={order.status} />
+                    <div className="flex items-center gap-1">
+                      <OrderStatusSelect orderId={order.id} status={order.status} />
+                      <DeleteOrderButton
+                        orderId={order.id}
+                        customerName={`${order.firstName} ${order.lastName}`}
+                      />
+                    </div>
                   </div>
 
                   <dl className="mt-3 space-y-2.5 border-t border-black/5 pt-3 text-sm">
@@ -314,7 +321,13 @@ export function OrdersTable({
                         )}
                       </td>
                       <td className="px-6 py-4">
-                        <OrderStatusSelect orderId={order.id} status={order.status} />
+                        <div className="flex items-center gap-1">
+                          <OrderStatusSelect orderId={order.id} status={order.status} />
+                          <DeleteOrderButton
+                            orderId={order.id}
+                            customerName={`${order.firstName} ${order.lastName}`}
+                          />
+                        </div>
                       </td>
                     </tr>
                   ))}
