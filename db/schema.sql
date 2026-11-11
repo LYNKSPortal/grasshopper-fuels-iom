@@ -46,6 +46,24 @@ CREATE TABLE IF NOT EXISTS order_status_notes (
 CREATE INDEX IF NOT EXISTS order_status_notes_order_id_idx
   ON order_status_notes (order_id);
 
+-- Logs every email attempt (confirmation on order creation, and status
+-- change notifications) so staff can audit whether/when a customer was
+-- actually emailed, straight from the admin dashboard.
+CREATE TABLE IF NOT EXISTS order_emails (
+  id UUID PRIMARY KEY,
+  order_id UUID NOT NULL REFERENCES orders (id) ON DELETE CASCADE,
+  email_type TEXT NOT NULL
+    CHECK (email_type IN ('confirmation', 'status_pending', 'status_in_process', 'status_done')),
+  recipient TEXT NOT NULL,
+  success BOOLEAN NOT NULL,
+  error_message TEXT,
+  resend_id TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS order_emails_order_id_idx
+  ON order_emails (order_id);
+
 CREATE TABLE IF NOT EXISTS contact_messages (
   id UUID PRIMARY KEY,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),

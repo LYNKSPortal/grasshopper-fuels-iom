@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { waitUntil } from "@vercel/functions";
 import { createOrder, getOrders } from "@/lib/orders";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { computeOrderTotal, type PricedCartItem } from "@/lib/pricing";
+import { sendOrderConfirmationEmail } from "@/lib/email";
 
 export async function GET() {
   const authed = await isAdminAuthenticated();
@@ -67,6 +69,11 @@ export async function POST(request: NextRequest) {
     message: body.message,
     amountToCollect,
   });
+
+  // Fire-and-forget: a failed/unconfigured email must never block the
+  // customer's order from being created. waitUntil keeps the send running
+  // on Vercel's serverless runtime even after the response has returned.
+  waitUntil(sendOrderConfirmationEmail(order));
 
   return NextResponse.json({ order }, { status: 201 });
 }

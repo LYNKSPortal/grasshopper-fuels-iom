@@ -9,6 +9,17 @@ export type StatusNote = {
   createdAt: string;
 };
 
+export type EmailType = "confirmation" | "status_pending" | "status_in_process" | "status_done";
+
+export type EmailLog = {
+  id: string;
+  emailType: EmailType;
+  recipient: string;
+  success: boolean;
+  errorMessage: string | null;
+  createdAt: string;
+};
+
 export type Order = {
   id: string;
   createdAt: string;
@@ -25,6 +36,7 @@ export type Order = {
   paymentJobReference: string | null;
   paymentReference: string | null;
   amountToCollect: string | null;
+  emailLogs: EmailLog[];
 };
 
 export type NewOrderInput = Omit<
@@ -36,6 +48,7 @@ export type NewOrderInput = Omit<
   | "paymentStatus"
   | "paymentJobReference"
   | "paymentReference"
+  | "emailLogs"
 >;
 
 export type Customer = {

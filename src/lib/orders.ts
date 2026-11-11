@@ -2,6 +2,8 @@ import { randomUUID } from "crypto";
 import { query, withConnection } from "@/lib/db";
 import type {
   Customer,
+  EmailLog,
+  EmailType,
   NewOrderInput,
   Order,
   OrderStatus,
@@ -11,7 +13,7 @@ import type {
 
 export type { Customer, NewOrderInput, Order, OrderStatus, PaymentStatus };
 export { orderStatuses } from "@/lib/order-types";
-export type { StatusNote } from "@/lib/order-types";
+export type { EmailLog, EmailType, StatusNote } from "@/lib/order-types";
 
 type OrderRow = {
   id: string;
@@ -38,7 +40,17 @@ type StatusNoteRow = {
   created_at: Date;
 };
 
-function toOrder(row: OrderRow, notes: StatusNoteRow[]): Order {
+type EmailLogRow = {
+  id: string;
+  order_id: string;
+  email_type: EmailType;
+  recipient: string;
+  success: boolean;
+  error_message: string | null;
+  created_at: Date;
+};
+
+function toOrder(row: OrderRow, notes: StatusNoteRow[], emails: EmailLogRow[] = []): Order {
   return {
     id: row.id,
     createdAt: row.created_at.toISOString(),
@@ -55,6 +67,7 @@ function toOrder(row: OrderRow, notes: StatusNoteRow[]): Order {
     paymentJobReference: row.payment_job_reference,
     paymentReference: row.payment_reference,
     amountToCollect: row.amount_to_collect,
+    emailLogs: emails.map(toEmailLog),
   };
 }
 
@@ -67,6 +80,41 @@ function toStatusNote(row: StatusNoteRow): StatusNote {
   };
 }
 
+function toEmailLog(row: EmailLogRow): EmailLog {
+  return {
+    id: row.id,
+    emailType: row.email_type,
+    recipient: row.recipient,
+    success: row.success,
+    errorMessage: row.error_message,
+    createdAt: row.created_at.toISOString(),
+  };
+}
+
+/** Logs an email send attempt against an order, for the admin audit trail. */
+export async function logOrderEmail(params: {
+  orderId: string;
+  emailType: EmailType;
+  recipient: string;
+  success: boolean;
+  errorMessage?: string;
+  resendId?: string;
+}): Promise<void> {
+  await query(
+    `INSERT INTO order_emails (id, order_id, email_type, recipient, success, error_message, resend_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+    [
+      randomUUID(),
+      params.orderId,
+      params.emailType,
+      params.recipient,
+      params.success,
+      params.errorMessage ?? null,
+      params.resendId ?? null,
+    ]
+  );
+}
+
 export async function getOrderById(id: string): Promise<Order | null> {
   const { rows } = await query<OrderRow>("SELECT * FROM orders WHERE id = $1", [id]);
   if (rows.length === 0) return null;
@@ -75,8 +123,12 @@ export async function getOrderById(id: string): Promise<Order | null> {
     "SELECT * FROM order_status_notes WHERE order_id = $1 ORDER BY created_at ASC",
     [id]
   );
+  const { rows: emailRows } = await query<EmailLogRow>(
+    "SELECT * FROM order_emails WHERE order_id = $1 ORDER BY created_at ASC",
+    [id]
+  );
 
-  return toOrder(rows[0], noteRows);
+  return toOrder(rows[0], noteRows, emailRows);
 }
 
 /**
@@ -122,6 +174,10 @@ export async function getOrders(): Promise<Order[]> {
     "SELECT * FROM order_status_notes WHERE order_id = ANY($1) ORDER BY created_at ASC",
     [orderRows.map((o) => o.id)]
   );
+  const { rows: emailRows } = await query<EmailLogRow>(
+    "SELECT * FROM order_emails WHERE order_id = ANY($1) ORDER BY created_at ASC",
+    [orderRows.map((o) => o.id)]
+  );
 
   const notesByOrderId = new Map<string, StatusNoteRow[]>();
   for (const note of noteRows) {
@@ -133,7 +189,19 @@ export async function getOrders(): Promise<Order[]> {
     }
   }
 
-  return orderRows.map((row) => toOrder(row, notesByOrderId.get(row.id) ?? []));
+  const emailsByOrderId = new Map<string, EmailLogRow[]>();
+  for (const email of emailRows) {
+    const existing = emailsByOrderId.get(email.order_id);
+    if (existing) {
+      existing.push(email);
+    } else {
+      emailsByOrderId.set(email.order_id, [email]);
+    }
+  }
+
+  return orderRows.map((row) =>
+    toOrder(row, notesByOrderId.get(row.id) ?? [], emailsByOrderId.get(row.id) ?? [])
+  );
 }
 
 export async function createOrder(input: NewOrderInput): Promise<Order> {

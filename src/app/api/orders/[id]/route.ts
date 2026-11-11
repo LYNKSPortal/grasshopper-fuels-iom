@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { waitUntil } from "@vercel/functions";
 import { deleteOrder, getOrderById, updateOrderStatus } from "@/lib/orders";
 import { orderStatuses, type OrderStatus } from "@/lib/order-types";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
@@ -32,8 +33,9 @@ export async function PATCH(
 
   if (previous && previous.status !== status) {
     // Fire-and-forget: a failed/unconfigured email must never block the
-    // admin status update itself.
-    void sendOrderStatusEmail(order, status, note);
+    // admin status update itself. waitUntil keeps the send running on
+    // Vercel's serverless runtime even after the response has returned.
+    waitUntil(sendOrderStatusEmail(order, status, note));
   }
 
   return NextResponse.json({ order });

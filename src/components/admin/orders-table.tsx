@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowDown, ArrowUp, Inbox } from "lucide-react";
+import { ArrowDown, ArrowUp, CheckCircle2, Inbox, XCircle } from "lucide-react";
 import { OrderStatusSelect } from "@/components/admin/order-status-select";
 import { RefreshPaymentButton } from "@/components/admin/refresh-payment-button";
 import { DeleteOrderButton } from "@/components/admin/delete-order-button";
 import { SortableHeader, type SortDirection } from "@/components/admin/sortable-header";
-import type { Order } from "@/lib/order-types";
+import type { EmailType, Order } from "@/lib/order-types";
 
 type SortKey =
   | "date"
@@ -80,6 +80,37 @@ function PaymentBadge({ status }: { status: Order["paymentStatus"] }) {
     >
       {paymentStatusLabels[status]}
     </span>
+  );
+}
+
+const emailTypeLabels: Record<EmailType, string> = {
+  confirmation: "Order confirmation",
+  status_pending: "Status update: Pending",
+  status_in_process: "Status update: In Process",
+  status_done: "Status update: Done",
+};
+
+function EmailLogList({ logs }: { logs: Order["emailLogs"] }) {
+  if (logs.length === 0) return null;
+  return (
+    <div className="mt-2 space-y-1 border-t border-black/5 pt-2">
+      <p className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40">
+        Emails
+      </p>
+      {logs.map((log) => (
+        <div key={log.id} className="flex items-start gap-1.5 text-xs">
+          {log.success ? (
+            <CheckCircle2 className="mt-0.5 h-3 w-3 shrink-0 text-[#18af8a]" />
+          ) : (
+            <XCircle className="mt-0.5 h-3 w-3 shrink-0 text-red-500" />
+          )}
+          <span className={log.success ? "text-[#202e25]/60" : "text-red-600"}>
+            {emailTypeLabels[log.emailType]} &ndash; {formatDate(log.createdAt)}
+            {!log.success && log.errorMessage ? ` (${log.errorMessage})` : ""}
+          </span>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -229,7 +260,7 @@ export function OrdersTable({
                     <MobileField label="Address">
                       <span className="text-[#202e25]/80">{order.address}</span>
                     </MobileField>
-                    {(order.message || order.statusNotes.length > 0) && (
+                    {(order.message || order.statusNotes.length > 0 || order.emailLogs.length > 0) && (
                       <MobileField label="Notes">
                         {order.message && (
                           <div className="text-[#202e25]/80">{order.message}</div>
@@ -246,6 +277,7 @@ export function OrdersTable({
                             ))}
                           </div>
                         )}
+                        <EmailLogList logs={order.emailLogs} />
                       </MobileField>
                     )}
                   </dl>
@@ -306,6 +338,7 @@ export function OrdersTable({
                             ))}
                           </div>
                         )}
+                        <EmailLogList logs={order.emailLogs} />
                       </td>
                       <td className="px-6 py-4">
                         <PaymentBadge status={order.paymentStatus} />
