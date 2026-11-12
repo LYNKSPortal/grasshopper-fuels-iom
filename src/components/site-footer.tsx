@@ -134,6 +134,11 @@ export function SiteFooter() {
                 &copy; {year} {siteConfig.legalName}. All rights reserved.
                 Registered in the Isle of Man, Company No. {siteConfig.companyNumber}.
               </p>
+              <p>
+                Registered with the Isle of Man Information Commissioner&rsquo;s
+                Office as a Data Controller, Registration No.{" "}
+                {siteConfig.dataProtectionRegistrationNumber}.
+              </p>
               <div className="flex gap-6">
                 <Link href="/privacy-policy" className="hover:text-white">
                   Privacy Policy
