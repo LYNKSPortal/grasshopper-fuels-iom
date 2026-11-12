@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProductDetail } from "@/components/product-detail";
 import { getProduct } from "@/lib/products";
+import { getProductWithLiveStock } from "@/lib/stock";
 
 export const metadata: Metadata = {
   title: "Coal \u2013 Kosy Glo Ovoids",
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
   twitter: { images: ["/coal-new.jpg"] },
 };
 
-export default function CoalPage() {
-  const product = getProduct("coal")!;
+export const dynamic = "force-dynamic";
+
+export default async function CoalPage() {
+  const product = (await getProductWithLiveStock("coal"))!;
   return <ProductDetail product={product} />;
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { OrderShop } from "@/components/order-shop";
-import { products } from "@/lib/products";
+import { getProductsWithLiveStock } from "@/lib/stock";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -13,7 +13,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/order" },
 };
 
-export default function OrderPage() {
+export const dynamic = "force-dynamic";
+
+export default async function OrderPage() {
+  const products = await getProductsWithLiveStock();
   return (
     <>
       <PageHero

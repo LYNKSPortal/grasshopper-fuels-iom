@@ -4,6 +4,7 @@ import { createOrder, getOrders } from "@/lib/orders";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { computeOrderTotal, type PricedCartItem } from "@/lib/pricing";
 import { sendOrderConfirmationEmail } from "@/lib/email";
+import { getProductsWithLiveStock } from "@/lib/stock";
 
 export async function GET() {
   const authed = await isAdminAuthenticated();
@@ -53,7 +54,8 @@ export async function POST(request: NextRequest) {
         quantity: Number(item.quantity ?? 0),
       }));
 
-    const { amount, allPriced } = computeOrderTotal(items);
+    const liveProducts = await getProductsWithLiveStock();
+    const { amount, allPriced } = computeOrderTotal(items, liveProducts);
     if (allPriced && amount > 0) {
       amountToCollect = amount.toFixed(2);
     }

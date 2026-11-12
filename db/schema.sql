@@ -76,3 +76,27 @@ CREATE TABLE IF NOT EXISTS contact_messages (
 
 CREATE INDEX IF NOT EXISTS contact_messages_created_at_idx
   ON contact_messages (created_at DESC);
+
+-- Live stock status per product variant, editable from the admin dashboard
+-- (/admin/stock) instead of requiring a code change + deploy. Any variant
+-- not yet present here falls back to the outOfStockVariants hardcoded in
+-- src/lib/products.ts (see src/lib/stock.ts).
+CREATE TABLE IF NOT EXISTS product_stock (
+  product_slug TEXT NOT NULL,
+  variant_label TEXT NOT NULL,
+  in_stock BOOLEAN NOT NULL DEFAULT true,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  PRIMARY KEY (product_slug, variant_label)
+);
+
+-- Seed with the current hardcoded stock state. ON CONFLICT DO NOTHING so
+-- re-running this migration never overwrites stock changes made via the
+-- admin UI.
+INSERT INTO product_stock (product_slug, variant_label, in_stock) VALUES
+  ('kiln-dried-logs', 'Birch', true),
+  ('kiln-dried-logs', 'Oak', false),
+  ('kiln-dried-logs', 'Ash', false),
+  ('coal', 'Premium Kosy Glo Ovoids – 20kg bags', true),
+  ('kindling', '4kg Kindling Nets', true),
+  ('kindling', 'Firelighters', true)
+ON CONFLICT (product_slug, variant_label) DO NOTHING;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LogOut, Menu, PackageSearch, Users } from "lucide-react";
+import { Boxes, LogOut, Menu, PackageSearch, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/admin/theme-toggle";
 import {
@@ -18,6 +18,7 @@ import {
 const navItems = [
   { href: "/admin/orders", label: "Orders", icon: PackageSearch },
   { href: "/admin/customers", label: "Customers", icon: Users },
+  { href: "/admin/stock", label: "Stock", icon: Boxes },
 ];
 
 function NavLinks({

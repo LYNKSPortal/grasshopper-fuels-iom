@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProductDetail } from "@/components/product-detail";
 import { getProduct } from "@/lib/products";
+import { getProductWithLiveStock } from "@/lib/stock";
 
 export const metadata: Metadata = {
   title: "Firewood Accessories \u2013 Kindling Nets & Firelighters",
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
   twitter: { images: ["/natural-firelighters-02.jpg"] },
 };
 
-export default function KindlingPage() {
-  const product = getProduct("kindling")!;
+export const dynamic = "force-dynamic";
+
+export default async function KindlingPage() {
+  const product = (await getProductWithLiveStock("kindling"))!;
   return <ProductDetail product={product} />;
 }

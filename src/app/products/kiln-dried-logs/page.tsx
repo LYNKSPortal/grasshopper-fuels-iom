@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProductDetail } from "@/components/product-detail";
 import { getProduct } from "@/lib/products";
+import { getProductWithLiveStock } from "@/lib/stock";
 
 export const metadata: Metadata = {
   title: "Kiln-Dried Logs \u2013 Birch, Oak & Ash",
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
   twitter: { images: ["/Kiln-Dried-Logs.jpg"] },
 };
 
-export default function KilnDriedLogsPage() {
-  const product = getProduct("kiln-dried-logs")!;
+export const dynamic = "force-dynamic";
+
+export default async function KilnDriedLogsPage() {
+  const product = (await getProductWithLiveStock("kiln-dried-logs"))!;
   return <ProductDetail product={product} />;
 }
