@@ -12,8 +12,8 @@ export default async function AdminOrdersPage() {
   return (
     <div className="space-y-8 p-4 sm:space-y-12 sm:p-8">
       <div>
-        <h1 className="text-xl font-extrabold text-[#202e25] sm:text-2xl">Orders</h1>
-        <p className="mt-1 text-sm text-[#202e25]/60">
+        <h1 className="text-xl font-extrabold text-[#202e25] dark:text-white sm:text-2xl">Orders</h1>
+        <p className="mt-1 text-sm text-[#202e25]/60 dark:text-white/60">
           Enquiries submitted through the website contact form.
         </p>
       </div>

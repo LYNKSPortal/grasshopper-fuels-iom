@@ -53,7 +53,7 @@ export function DeleteOrderButton({
         }}
         aria-label="Delete order permanently"
         title="Delete order permanently"
-        className="flex h-8 w-8 items-center justify-center rounded-lg text-[#202e25]/40 transition-colors hover:bg-red-50 hover:text-red-600"
+        className="flex h-8 w-8 items-center justify-center rounded-lg text-[#202e25]/40 transition-colors hover:bg-red-50 hover:text-red-600 dark:text-white/40 dark:hover:bg-red-500/10 dark:hover:text-red-400"
       >
         <Trash2 className="h-4 w-4" />
       </button>
@@ -69,7 +69,7 @@ export function DeleteOrderButton({
           </DialogHeader>
 
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-[#202e25]">
+            <label className="text-sm font-semibold text-[#202e25] dark:text-white">
               Type DELETE to confirm
             </label>
             <input
@@ -77,11 +77,13 @@ export function DeleteOrderButton({
               value={confirmText}
               onChange={(e) => setConfirmText(e.target.value)}
               placeholder="DELETE"
-              className="h-10 w-full rounded-lg border border-input bg-white px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+              className="h-10 w-full rounded-lg border border-input bg-white px-3 text-sm text-[#202e25] outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-[#14191a] dark:text-white"
             />
           </div>
 
-          {error && <p className="text-sm font-medium text-red-600">{error}</p>}
+          {error && (
+            <p className="text-sm font-medium text-red-600 dark:text-red-400">{error}</p>
+          )}
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>

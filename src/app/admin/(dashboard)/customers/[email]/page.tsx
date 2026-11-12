@@ -22,31 +22,31 @@ export default async function AdminCustomerDetailPage({
     <div className="p-4 sm:p-8">
       <Link
         href="/admin/customers"
-        className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#202e25]/60 hover:text-[#202e25]"
+        className="mb-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#202e25]/60 hover:text-[#202e25] dark:text-white/60 dark:hover:text-white"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to customers
       </Link>
 
-      <div className="mb-6 rounded-3xl border border-black/5 bg-white p-4 shadow-sm sm:mb-8 sm:p-6">
-        <h1 className="text-xl font-extrabold text-[#202e25] sm:text-2xl">
+      <div className="mb-6 rounded-3xl border border-black/5 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-[#1c2225] sm:mb-8 sm:p-6">
+        <h1 className="text-xl font-extrabold text-[#202e25] dark:text-white sm:text-2xl">
           {customer.firstName} {customer.lastName}
         </h1>
-        <div className="mt-3 grid grid-cols-1 gap-3 text-sm text-[#202e25]/70 sm:grid-cols-3">
+        <div className="mt-3 grid grid-cols-1 gap-3 text-sm text-[#202e25]/70 dark:text-white/70 sm:grid-cols-3">
           <div>
-            <div className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40">
+            <div className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40 dark:text-white/40">
               Email
             </div>
             {customer.email}
           </div>
           <div>
-            <div className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40">
+            <div className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40 dark:text-white/40">
               Phone
             </div>
             {customer.phone}
           </div>
           <div>
-            <div className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40">
+            <div className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40 dark:text-white/40">
               Address
             </div>
             {customer.address}

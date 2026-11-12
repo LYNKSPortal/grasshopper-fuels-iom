@@ -24,8 +24,8 @@ export function SortableHeader<K extends string>({
       <button
         type="button"
         onClick={() => onSort(sortKey)}
-        className={`flex items-center gap-1 uppercase tracking-wide transition-colors hover:text-[#202e25] ${
-          isActive ? "text-[#202e25]" : ""
+        className={`flex items-center gap-1 uppercase tracking-wide transition-colors hover:text-[#202e25] dark:hover:text-white ${
+          isActive ? "text-[#202e25] dark:text-white" : ""
         }`}
       >
         {label}

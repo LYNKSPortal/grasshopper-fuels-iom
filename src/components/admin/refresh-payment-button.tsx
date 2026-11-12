@@ -30,8 +30,8 @@ export function RefreshPaymentButton({ orderId }: { orderId: string }) {
       title="Re-check payment status with Cashflows"
       aria-label="Refresh payment status"
       className={cn(
-        "inline-flex items-center gap-1 text-[11px] font-semibold text-[#202e25]/40 transition-colors hover:text-[#18af8a] disabled:cursor-not-allowed disabled:opacity-60",
-        error && "text-red-500"
+        "inline-flex items-center gap-1 text-[11px] font-semibold text-[#202e25]/40 transition-colors hover:text-[#18af8a] disabled:cursor-not-allowed disabled:opacity-60 dark:text-white/40",
+        error && "text-red-500 dark:text-red-400"
       )}
     >
       <RefreshCw className={cn("h-3 w-3", isPending && "animate-spin")} />

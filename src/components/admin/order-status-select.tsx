@@ -17,9 +17,9 @@ import {
 } from "@/components/ui/dialog";
 
 const statusStyles: Record<OrderStatus, string> = {
-  pending: "bg-amber-50 text-amber-700 border-amber-200",
+  pending: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/30",
   in_process: "bg-[#18af8a]/10 text-[#18af8a] border-[#18af8a]/30",
-  done: "bg-[#63cd26]/10 text-[#3f8a12] border-[#63cd26]/30",
+  done: "bg-[#63cd26]/10 text-[#3f8a12] border-[#63cd26]/30 dark:text-[#8fe94f]",
 };
 
 const statusLabels: Record<OrderStatus, string> = {

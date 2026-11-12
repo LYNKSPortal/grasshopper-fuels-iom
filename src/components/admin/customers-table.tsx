@@ -71,10 +71,12 @@ export function CustomersTable({ customers }: { customers: Customer[] }) {
 
   if (sortedCustomers.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-black/10 bg-white py-20 text-center">
-        <Users className="h-10 w-10 text-[#202e25]/25" />
-        <p className="text-sm font-semibold text-[#202e25]/60">No customers yet</p>
-        <p className="max-w-xs text-xs text-[#202e25]/45">
+      <div className="flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-black/10 bg-white py-20 text-center dark:border-white/15 dark:bg-[#1c2225]">
+        <Users className="h-10 w-10 text-[#202e25]/25 dark:text-white/25" />
+        <p className="text-sm font-semibold text-[#202e25]/60 dark:text-white/60">
+          No customers yet
+        </p>
+        <p className="max-w-xs text-xs text-[#202e25]/45 dark:text-white/45">
           Customers who submit the contact form will appear here.
         </p>
       </div>
@@ -90,7 +92,7 @@ export function CustomersTable({ customers }: { customers: Customer[] }) {
             value={sortKey}
             onChange={(e) => setSortKey(e.target.value as SortKey)}
             aria-label="Sort customers by"
-            className="h-10 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm font-semibold text-[#202e25]"
+            className="h-10 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm font-semibold text-[#202e25] dark:border-white/15 dark:bg-[#1c2225] dark:text-white"
           >
             {sortOptions.map((o) => (
               <option key={o.value} value={o.value}>
@@ -102,7 +104,7 @@ export function CustomersTable({ customers }: { customers: Customer[] }) {
             type="button"
             onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
             aria-label="Toggle sort direction"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-black/10 bg-white text-[#202e25]/60 active:bg-[#f7faf9]"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-black/10 bg-white text-[#202e25]/60 active:bg-[#f7faf9] dark:border-white/15 dark:bg-[#1c2225] dark:text-white/60 dark:active:bg-white/5"
           >
             {sortDir === "asc" ? (
               <ArrowUp className="h-4 w-4" />
@@ -117,39 +119,41 @@ export function CustomersTable({ customers }: { customers: Customer[] }) {
             <Link
               key={customer.email}
               href={`/admin/customers/${encodeURIComponent(customer.email)}`}
-              className="block rounded-2xl border border-black/5 bg-white p-4 shadow-sm active:bg-[#f7faf9]"
+              className="block rounded-2xl border border-black/5 bg-white p-4 shadow-sm active:bg-[#f7faf9] dark:border-white/10 dark:bg-[#1c2225] dark:active:bg-white/5"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="truncate font-bold text-[#202e25]">
+                  <p className="truncate font-bold text-[#202e25] dark:text-white">
                     {customer.firstName} {customer.lastName}
                   </p>
-                  <p className="text-xs font-medium text-[#202e25]/50">
+                  <p className="text-xs font-medium text-[#202e25]/50 dark:text-white/50">
                     {customer.totalOrders} order{customer.totalOrders === 1 ? "" : "s"} &middot;
                     Last {formatDate(customer.lastOrderDate)}
                   </p>
                 </div>
-                <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-[#202e25]/30" />
+                <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-[#202e25]/30 dark:text-white/30" />
               </div>
 
-              <dl className="mt-3 space-y-2.5 border-t border-black/5 pt-3 text-sm">
+              <dl className="mt-3 space-y-2.5 border-t border-black/5 pt-3 text-sm dark:border-white/10">
                 <div>
-                  <dt className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40">
+                  <dt className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40 dark:text-white/40">
                     Email
                   </dt>
-                  <dd className="mt-0.5 break-all text-[#202e25]/80">{customer.email}</dd>
+                  <dd className="mt-0.5 break-all text-[#202e25]/80 dark:text-white/80">
+                    {customer.email}
+                  </dd>
                 </div>
                 <div>
-                  <dt className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40">
+                  <dt className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40 dark:text-white/40">
                     Phone
                   </dt>
-                  <dd className="mt-0.5 text-[#202e25]/80">{customer.phone}</dd>
+                  <dd className="mt-0.5 text-[#202e25]/80 dark:text-white/80">{customer.phone}</dd>
                 </div>
                 <div>
-                  <dt className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40">
+                  <dt className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40 dark:text-white/40">
                     Address
                   </dt>
-                  <dd className="mt-0.5 text-[#202e25]/80">{customer.address}</dd>
+                  <dd className="mt-0.5 text-[#202e25]/80 dark:text-white/80">{customer.address}</dd>
                 </div>
               </dl>
             </Link>
@@ -158,11 +162,11 @@ export function CustomersTable({ customers }: { customers: Customer[] }) {
       </div>
 
       {/* Desktop/tablet: full table */}
-      <div className="hidden overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm sm:block">
+      <div className="hidden overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm dark:border-white/10 dark:bg-[#1c2225] sm:block">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-black/5 bg-[#f7faf9] text-xs font-bold text-[#202e25]/50">
+              <tr className="border-b border-black/5 bg-[#f7faf9] text-xs font-bold text-[#202e25]/50 dark:border-white/10 dark:bg-[#14191a] dark:text-white/50">
                 <SortableHeader label="Name" sortKey="name" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
                 <SortableHeader label="Email" sortKey="email" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
                 <SortableHeader label="Phone" sortKey="phone" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
@@ -172,19 +176,21 @@ export function CustomersTable({ customers }: { customers: Customer[] }) {
                 <th className="px-6 py-3" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-black/5">
+            <tbody className="divide-y divide-black/5 dark:divide-white/10">
               {sortedCustomers.map((customer) => (
                 <tr key={customer.email} className="align-top">
-                  <td className="px-6 py-4 font-semibold text-[#202e25]">
+                  <td className="px-6 py-4 font-semibold text-[#202e25] dark:text-white">
                     {customer.firstName} {customer.lastName}
                   </td>
-                  <td className="px-6 py-4 text-[#202e25]/70">{customer.email}</td>
-                  <td className="px-6 py-4 text-[#202e25]/70">{customer.phone}</td>
-                  <td className="max-w-xs px-6 py-4 text-[#202e25]/70">
+                  <td className="px-6 py-4 text-[#202e25]/70 dark:text-white/70">{customer.email}</td>
+                  <td className="px-6 py-4 text-[#202e25]/70 dark:text-white/70">{customer.phone}</td>
+                  <td className="max-w-xs px-6 py-4 text-[#202e25]/70 dark:text-white/70">
                     {customer.address}
                   </td>
-                  <td className="px-6 py-4 text-[#202e25]/70">{customer.totalOrders}</td>
-                  <td className="whitespace-nowrap px-6 py-4 text-[#202e25]/70">
+                  <td className="px-6 py-4 text-[#202e25]/70 dark:text-white/70">
+                    {customer.totalOrders}
+                  </td>
+                  <td className="whitespace-nowrap px-6 py-4 text-[#202e25]/70 dark:text-white/70">
                     {formatDate(customer.lastOrderDate)}
                   </td>
                   <td className="px-6 py-4 text-right">

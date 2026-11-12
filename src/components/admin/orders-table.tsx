@@ -58,11 +58,11 @@ function splitOrderItems(order: string): string[] {
 }
 
 const paymentStatusStyles: Record<Order["paymentStatus"], string> = {
-  unpaid: "bg-black/5 text-[#202e25]/50",
-  pending: "bg-amber-50 text-amber-700",
+  unpaid: "bg-black/5 text-[#202e25]/50 dark:bg-white/5 dark:text-white/50",
+  pending: "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
   paid: "bg-[#18af8a]/10 text-[#18af8a]",
-  failed: "bg-red-50 text-red-600",
-  cancelled: "bg-black/5 text-[#202e25]/50",
+  failed: "bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400",
+  cancelled: "bg-black/5 text-[#202e25]/50 dark:bg-white/5 dark:text-white/50",
 };
 
 const paymentStatusLabels: Record<Order["paymentStatus"], string> = {
@@ -93,8 +93,8 @@ const emailTypeLabels: Record<EmailType, string> = {
 function EmailLogList({ logs }: { logs: Order["emailLogs"] }) {
   if (logs.length === 0) return null;
   return (
-    <div className="mt-2 space-y-1 border-t border-black/5 pt-2">
-      <p className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40">
+    <div className="mt-2 space-y-1 border-t border-black/5 pt-2 dark:border-white/10">
+      <p className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40 dark:text-white/40">
         Emails
       </p>
       {logs.map((log) => (
@@ -102,9 +102,15 @@ function EmailLogList({ logs }: { logs: Order["emailLogs"] }) {
           {log.success ? (
             <CheckCircle2 className="mt-0.5 h-3 w-3 shrink-0 text-[#18af8a]" />
           ) : (
-            <XCircle className="mt-0.5 h-3 w-3 shrink-0 text-red-500" />
+            <XCircle className="mt-0.5 h-3 w-3 shrink-0 text-red-500 dark:text-red-400" />
           )}
-          <span className={log.success ? "text-[#202e25]/60" : "text-red-600"}>
+          <span
+            className={
+              log.success
+                ? "text-[#202e25]/60 dark:text-white/60"
+                : "text-red-600 dark:text-red-400"
+            }
+          >
             {emailTypeLabels[log.emailType]} &ndash; {formatDate(log.createdAt)}
             {!log.success && log.errorMessage ? ` (${log.errorMessage})` : ""}
           </span>
@@ -164,14 +170,16 @@ export function OrdersTable({
   return (
     <section>
       <div className="mb-4">
-        <h2 className="text-lg font-extrabold text-[#202e25]">{title}</h2>
-        <p className="text-sm text-[#202e25]/55">{description}</p>
+        <h2 className="text-lg font-extrabold text-[#202e25] dark:text-white">{title}</h2>
+        <p className="text-sm text-[#202e25]/55 dark:text-white/55">{description}</p>
       </div>
 
       {sortedOrders.length === 0 ? (
-        <div className="flex flex-col items-center justify-center gap-2 rounded-3xl border border-dashed border-black/10 bg-white py-14 text-center">
-          <Inbox className="h-8 w-8 text-[#202e25]/25" />
-          <p className="text-sm font-semibold text-[#202e25]/55">{emptyLabel}</p>
+        <div className="flex flex-col items-center justify-center gap-2 rounded-3xl border border-dashed border-black/10 bg-white py-14 text-center dark:border-white/15 dark:bg-[#1c2225]">
+          <Inbox className="h-8 w-8 text-[#202e25]/25 dark:text-white/25" />
+          <p className="text-sm font-semibold text-[#202e25]/55 dark:text-white/55">
+            {emptyLabel}
+          </p>
         </div>
       ) : (
         <>
@@ -182,7 +190,7 @@ export function OrdersTable({
                 value={sortKey}
                 onChange={(e) => setSortKey(e.target.value as SortKey)}
                 aria-label="Sort orders by"
-                className="h-10 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm font-semibold text-[#202e25]"
+                className="h-10 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm font-semibold text-[#202e25] dark:border-white/15 dark:bg-[#1c2225] dark:text-white"
               >
                 {sortOptions.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -194,7 +202,7 @@ export function OrdersTable({
                 type="button"
                 onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
                 aria-label="Toggle sort direction"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-black/10 bg-white text-[#202e25]/60 active:bg-[#f7faf9]"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-black/10 bg-white text-[#202e25]/60 active:bg-[#f7faf9] dark:border-white/15 dark:bg-[#1c2225] dark:text-white/60 dark:active:bg-white/5"
               >
                 {sortDir === "asc" ? (
                   <ArrowUp className="h-4 w-4" />
@@ -208,20 +216,20 @@ export function OrdersTable({
               {sortedOrders.map((order) => (
                 <div
                   key={order.id}
-                  className="rounded-2xl border border-black/5 bg-white p-4 shadow-sm"
+                  className="rounded-2xl border border-black/5 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-[#1c2225]"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="truncate font-bold text-[#202e25]">
+                      <p className="truncate font-bold text-[#202e25] dark:text-white">
                         {order.firstName} {order.lastName}
                       </p>
-                      <p className="text-xs font-medium text-[#202e25]/50">
+                      <p className="text-xs font-medium text-[#202e25]/50 dark:text-white/50">
                         {formatDate(order.createdAt)}
                       </p>
                       <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                         <PaymentBadge status={order.paymentStatus} />
                         {order.amountToCollect && (
-                          <span className="text-xs font-semibold text-[#202e25]/60">
+                          <span className="text-xs font-semibold text-[#202e25]/60 dark:text-white/60">
                             £{order.amountToCollect}
                           </span>
                         )}
@@ -239,40 +247,43 @@ export function OrdersTable({
                     </div>
                   </div>
 
-                  <dl className="mt-3 space-y-2.5 border-t border-black/5 pt-3 text-sm">
+                  <dl className="mt-3 space-y-2.5 border-t border-black/5 pt-3 text-sm dark:border-white/10">
                     <MobileField label="Email">
-                      <a href={`mailto:${order.email}`} className="break-all text-[#202e25]/80">
+                      <a
+                        href={`mailto:${order.email}`}
+                        className="break-all text-[#202e25]/80 dark:text-white/80"
+                      >
                         {order.email}
                       </a>
                     </MobileField>
                     <MobileField label="Phone">
-                      <a href={`tel:${order.phone}`} className="text-[#202e25]/80">
+                      <a href={`tel:${order.phone}`} className="text-[#202e25]/80 dark:text-white/80">
                         {order.phone}
                       </a>
                     </MobileField>
                     <MobileField label="Order">
-                      <div className="flex flex-col gap-1 text-[#202e25]/80">
+                      <div className="flex flex-col gap-1 text-[#202e25]/80 dark:text-white/80">
                         {splitOrderItems(order.order).map((item, i) => (
                           <div key={i}>{item}</div>
                         ))}
                       </div>
                     </MobileField>
                     <MobileField label="Address">
-                      <span className="text-[#202e25]/80">{order.address}</span>
+                      <span className="text-[#202e25]/80 dark:text-white/80">{order.address}</span>
                     </MobileField>
                     {(order.message || order.statusNotes.length > 0 || order.emailLogs.length > 0) && (
                       <MobileField label="Notes">
                         {order.message && (
-                          <div className="text-[#202e25]/80">{order.message}</div>
+                          <div className="text-[#202e25]/80 dark:text-white/80">{order.message}</div>
                         )}
                         {order.statusNotes.length > 0 && (
-                          <div className="mt-1.5 space-y-1.5 border-t border-black/5 pt-1.5">
+                          <div className="mt-1.5 space-y-1.5 border-t border-black/5 pt-1.5 dark:border-white/10">
                             {order.statusNotes.map((sn) => (
                               <div key={sn.id} className="text-xs">
-                                <span className="font-bold text-[#202e25]/70">
+                                <span className="font-bold text-[#202e25]/70 dark:text-white/70">
                                   {sn.status.replace("_", " ")}:
                                 </span>{" "}
-                                <span className="text-[#202e25]/60">{sn.note}</span>
+                                <span className="text-[#202e25]/60 dark:text-white/60">{sn.note}</span>
                               </div>
                             ))}
                           </div>
@@ -287,11 +298,11 @@ export function OrdersTable({
           </div>
 
           {/* Desktop/tablet: full table */}
-          <div className="hidden overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm sm:block">
+          <div className="hidden overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm dark:border-white/10 dark:bg-[#1c2225] sm:block">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead>
-                  <tr className="border-b border-black/5 bg-[#f7faf9] text-xs font-bold text-[#202e25]/50">
+                  <tr className="border-b border-black/5 bg-[#f7faf9] text-xs font-bold text-[#202e25]/50 dark:border-white/10 dark:bg-[#14191a] dark:text-white/50">
                     <SortableHeader label="Date" sortKey="date" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
                     <SortableHeader label="Customer" sortKey="customer" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
                     <SortableHeader label="Email" sortKey="email" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
@@ -303,37 +314,37 @@ export function OrdersTable({
                     <SortableHeader label="Status" sortKey="status" activeKey={sortKey} direction={sortDir} onSort={handleSort} />
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-black/5">
+                <tbody className="divide-y divide-black/5 dark:divide-white/10">
                   {sortedOrders.map((order) => (
                     <tr key={order.id} className="align-top">
-                      <td className="whitespace-nowrap px-6 py-4 text-xs font-medium text-[#202e25]/60">
+                      <td className="whitespace-nowrap px-6 py-4 text-xs font-medium text-[#202e25]/60 dark:text-white/60">
                         {formatDate(order.createdAt)}
                       </td>
-                      <td className="px-6 py-4 font-semibold text-[#202e25]">
+                      <td className="px-6 py-4 font-semibold text-[#202e25] dark:text-white">
                         {order.firstName} {order.lastName}
                       </td>
-                      <td className="px-6 py-4 text-[#202e25]/70">{order.email}</td>
-                      <td className="px-6 py-4 text-[#202e25]/70">{order.phone}</td>
-                      <td className="max-w-xs px-6 py-4 text-[#202e25]/70">
+                      <td className="px-6 py-4 text-[#202e25]/70 dark:text-white/70">{order.email}</td>
+                      <td className="px-6 py-4 text-[#202e25]/70 dark:text-white/70">{order.phone}</td>
+                      <td className="max-w-xs px-6 py-4 text-[#202e25]/70 dark:text-white/70">
                         <div className="flex flex-col gap-1">
                           {splitOrderItems(order.order).map((item, i) => (
                             <div key={i}>{item}</div>
                           ))}
                         </div>
                       </td>
-                      <td className="max-w-xs px-6 py-4 text-[#202e25]/70">
+                      <td className="max-w-xs px-6 py-4 text-[#202e25]/70 dark:text-white/70">
                         {order.address}
                       </td>
-                      <td className="max-w-xs px-6 py-4 text-[#202e25]/70">
+                      <td className="max-w-xs px-6 py-4 text-[#202e25]/70 dark:text-white/70">
                         <div>{order.message}</div>
                         {order.statusNotes.length > 0 && (
-                          <div className="mt-2 space-y-1.5 border-t border-black/5 pt-2">
+                          <div className="mt-2 space-y-1.5 border-t border-black/5 pt-2 dark:border-white/10">
                             {order.statusNotes.map((sn) => (
                               <div key={sn.id} className="text-xs">
-                                <span className="font-bold text-[#202e25]/70">
+                                <span className="font-bold text-[#202e25]/70 dark:text-white/70">
                                   {sn.status.replace("_", " ")}:
                                 </span>{" "}
-                                <span className="text-[#202e25]/60">{sn.note}</span>
+                                <span className="text-[#202e25]/60 dark:text-white/60">{sn.note}</span>
                               </div>
                             ))}
                           </div>
@@ -343,7 +354,7 @@ export function OrdersTable({
                       <td className="px-6 py-4">
                         <PaymentBadge status={order.paymentStatus} />
                         {order.amountToCollect && (
-                          <div className="mt-1 text-xs font-semibold text-[#202e25]/60">
+                          <div className="mt-1 text-xs font-semibold text-[#202e25]/60 dark:text-white/60">
                             £{order.amountToCollect}
                           </div>
                         )}
@@ -383,7 +394,7 @@ function MobileField({
 }) {
   return (
     <div>
-      <dt className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40">
+      <dt className="text-[0.65rem] font-bold uppercase tracking-wide text-[#202e25]/40 dark:text-white/40">
         {label}
       </dt>
       <dd className="mt-0.5">{children}</dd>
