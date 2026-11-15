@@ -55,14 +55,19 @@ export const metadata: Metadata = {
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
+  "@id": `${siteConfig.url}/#business`,
   name: siteConfig.name,
   legalName: siteConfig.legalName,
   description: siteConfig.description,
+  slogan: "Free island-wide delivery of kiln-dried logs, coal, and kindling across the Isle of Man.",
   url: siteConfig.url,
   logo: `${siteConfig.url}/logo.png`,
   image: `${siteConfig.url}/hero-bg-new.jpg`,
   telephone: siteConfig.contact.phonePlaceholder,
   email: siteConfig.contact.emailPlaceholder,
+  priceRange: "££",
+  currenciesAccepted: "GBP",
+  paymentAccepted: "Credit Card, Debit Card",
   address: {
     "@type": "PostalAddress",
     streetAddress: siteConfig.contact.addressPlaceholder,
@@ -73,7 +78,15 @@ const localBusinessJsonLd = {
     "@type": "Place",
     name: "Isle of Man",
   },
-  openingHours: siteConfig.contact.hoursPlaceholder,
+  makesOffer: [
+    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Kiln-Dried Logs" } },
+    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Coal" } },
+    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Kindling & Firelighters" } },
+  ],
+  // openingHours is omitted entirely rather than emitting an invalid
+  // placeholder string - schema.org requires a specific day/time format
+  // (e.g. "Mo-Fr 09:00-17:00"), and invalid structured data is worse for
+  // search/AI engines than simply not including the field.
   sameAs: [siteConfig.social.facebook].filter(
     (link) => link && link !== "#"
   ),
