@@ -1,6 +1,4 @@
-import { awsCredentialsProvider } from "@vercel/oidc-aws-credentials-provider";
 import { attachDatabasePool } from "@vercel/functions";
-import { Signer } from "@aws-sdk/rds-signer";
 import { Pool, type ClientBase, type QueryResultRow } from "pg";
 
 function requireEnv(name: string): string {
@@ -9,36 +7,14 @@ function requireEnv(name: string): string {
   return value;
 }
 
-const region = requireEnv("AWS_REGION");
-const host = requireEnv("DB_HOST");
-const port = Number(process.env.DB_PORT ?? 5432);
-const user = requireEnv("DB_USER");
-const database = process.env.DB_NAME || "postgres";
-const roleArn = requireEnv("AWS_ROLE_ARN");
-
-// No static database password is used. Vercel's OIDC token is exchanged for
-// short-lived AWS credentials (STS AssumeRoleWithWebIdentity), which are then
-// used to mint a short-lived RDS IAM auth token per connection.
-const signer = new Signer({
-  hostname: host,
-  port,
-  username: user,
-  region,
-  credentials: awsCredentialsProvider({
-    roleArn,
-    clientConfig: { region },
-  }),
-});
+// Neon Postgres. DATABASE_URL is the pooled (-pooler) connection string,
+// suitable for serverless/connection-per-request application traffic.
+// Schema migrations and data scripts should use DATABASE_URL_UNPOOLED
+// (the direct, non-pooled string) instead - see scripts/db-migrate.ts.
+const connectionString = requireEnv("DATABASE_URL");
 
 const pool = new Pool({
-  host,
-  port,
-  user,
-  database,
-  password: () => signer.getAuthToken(),
-  // This cluster's endpoint presents a publicly trusted Amazon certificate
-  // chain (Amazon Root CA 1 / Starfield), not the RDS-specific CA bundle, so
-  // Node's default trusted CA store is used to verify it.
+  connectionString,
   ssl: { rejectUnauthorized: true },
   max: 20,
 });

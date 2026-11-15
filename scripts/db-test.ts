@@ -3,7 +3,7 @@ config({ path: ".env.local" });
 
 async function main() {
   const { query } = await import("../src/lib/db");
-  console.log("Connecting to:", process.env.DB_HOST);
+  console.log("Connecting via DATABASE_URL...");
   const { rows } = await query<{ now: string; db: string }>(
     "SELECT now() AS now, current_database() AS db"
   );

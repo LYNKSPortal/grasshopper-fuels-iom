@@ -11,10 +11,8 @@
     "db:migrate": "tsx scripts/db-migrate.ts"
   },
   "dependencies": {
-    "@aws-sdk/rds-signer": "^3.1143.0",
     "@base-ui/react": "^1.6.0",
     "@vercel/functions": "^3.9.9",
-    "@vercel/oidc-aws-credentials-provider": "^3.3.9",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
