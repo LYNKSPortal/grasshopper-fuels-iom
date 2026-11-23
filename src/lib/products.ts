@@ -38,8 +38,8 @@ export const products: Product[] = [
     variants: ["Birch", "Oak", "Ash"],
     variantPrices: {
       Birch: "£6.50 per net",
-      Oak: "£6.90 per net",
-      Ash: "£6.90 per net",
+      Oak: "£7.90 per net",
+      Ash: "£7.90 per net",
     },
     variantOffers: {
       Birch: "Special offer: buy 50 for £5.50 each",
@@ -47,7 +47,7 @@ export const products: Product[] = [
     variantBulkOffers: {
       Birch: { minQty: 50, unitPrice: 5.5 },
     },
-    outOfStockVariants: ["Oak", "Ash"],
+    outOfStockVariants: [],
     stockNote: "18 trailer loads of logs currently in stock.",
     gallery: ["kiln-dried-logs-1", "kiln-dried-logs-2", "kiln-dried-logs-3"],
     intro:
