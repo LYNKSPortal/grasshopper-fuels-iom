@@ -13,9 +13,9 @@ export const metadata: Metadata = {
     title: "Gift Cards | Grasshopper Fuels",
     description:
       "Grasshopper Fuels gift cards from £25 to £500, redeemable against any order across the Isle of Man.",
-    images: [{ url: "/gift-card.png", width: 800, height: 800, alt: "Grasshopper Fuels gift card" }],
+    images: [{ url: "/gift-card.jpg", width: 1000, height: 1000, alt: "Grasshopper Fuels gift card" }],
   },
-  twitter: { images: ["/gift-card.png"] },
+  twitter: { images: ["/gift-card.jpg"] },
 };
 
 export const dynamic = "force-dynamic";

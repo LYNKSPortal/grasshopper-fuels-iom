@@ -26,7 +26,7 @@ export const products: Product[] = [
     shortDescription:
       "The perfect gift for anyone who loves a warm home. Redeemable against any Grasshopper Fuels order.",
     benefit: "Delivered by email or post",
-    image: "/gift-card.png",
+    image: "/gift-card.jpg",
     keywords: [
       "gift card Isle of Man",
       "firewood gift voucher",
