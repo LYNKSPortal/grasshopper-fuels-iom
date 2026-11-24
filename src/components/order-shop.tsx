@@ -253,42 +253,42 @@ function GiftCardOrderCard({ product }: { product: Product }) {
             </Link>
           </div>
 
-          <div className="mt-4">
-            <p className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40">
-              Choose an amount
-            </p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {amounts.map((amount) => {
-                const amountOutOfStock = product.outOfStockVariants?.includes(amount);
-                return (
-                  <button
-                    key={amount}
-                    type="button"
-                    disabled={amountOutOfStock}
-                    onClick={() => setSelected(amount)}
-                    aria-pressed={selected === amount}
-                    className={cn(
-                      "inline-flex items-center rounded-full px-5 py-2 text-sm font-bold transition-colors",
-                      amountOutOfStock
-                        ? "cursor-not-allowed bg-black/5 text-[#202e25]/30"
-                        : selected === amount
-                          ? "bg-[#18af8a] text-white shadow-sm"
-                          : "border border-input text-[#202e25] hover:border-[#18af8a]/50 hover:text-[#18af8a]"
-                    )}
-                  >
-                    {amount}
-                  </button>
-                );
-              })}
-            </div>
-            {totalInBasket > 0 && (
-              <p className="mt-2 text-xs font-medium text-[#202e25]/50">
-                {totalInBasket} gift card{totalInBasket === 1 ? "" : "s"} in basket
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40">
+                Choose an amount
               </p>
-            )}
-          </div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {amounts.map((amount) => {
+                  const amountOutOfStock = product.outOfStockVariants?.includes(amount);
+                  return (
+                    <button
+                      key={amount}
+                      type="button"
+                      disabled={amountOutOfStock}
+                      onClick={() => setSelected(amount)}
+                      aria-pressed={selected === amount}
+                      className={cn(
+                        "inline-flex items-center rounded-full px-5 py-2 text-sm font-bold transition-colors",
+                        amountOutOfStock
+                          ? "cursor-not-allowed bg-black/5 text-[#202e25]/30"
+                          : selected === amount
+                            ? "bg-[#18af8a] text-white shadow-sm"
+                            : "border border-input text-[#202e25] hover:border-[#18af8a]/50 hover:text-[#18af8a]"
+                      )}
+                    >
+                      {amount}
+                    </button>
+                  );
+                })}
+              </div>
+              {totalInBasket > 0 && (
+                <p className="mt-2 text-xs font-medium text-[#202e25]/50">
+                  {totalInBasket} gift card{totalInBasket === 1 ? "" : "s"} in basket
+                </p>
+              )}
+            </div>
 
-          <div className="mt-3">
             {outOfStock ? (
               <OutOfStockBadge />
             ) : (
