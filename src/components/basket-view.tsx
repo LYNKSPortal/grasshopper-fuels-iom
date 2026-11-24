@@ -101,8 +101,10 @@ function BasketLineItem({
   const bulkActive = item.bulkOffer && item.quantity >= item.bulkOffer.minQty;
   const image = products.find((p) => p.slug === item.productSlug)?.image;
 
+  const minQuantity = item.minQuantity ?? 1;
+
   function commitQuantity(next: number) {
-    onSetQuantity(item.key, Math.min(99, Math.max(1, next)));
+    onSetQuantity(item.key, Math.min(99, Math.max(minQuantity, next)));
   }
 
   function handleQuantityInputChange(e: React.ChangeEvent<HTMLInputElement>) {

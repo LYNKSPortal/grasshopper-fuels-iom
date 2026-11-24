@@ -22,6 +22,7 @@ export type CartItem = {
   variantLabel: string;
   priceLabel?: string;
   bulkOffer?: CartBulkOffer;
+  minQuantity?: number;
   quantity: number;
 };
 

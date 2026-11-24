@@ -10,6 +10,7 @@ export type Product = {
   variantPrices?: Record<string, string>;
   variantOffers?: Record<string, string>;
   variantBulkOffers?: Record<string, { minQty: number; unitPrice: number }>;
+  variantMinQuantity?: Record<string, number>;
   outOfStockVariants?: string[];
   stockNote?: string;
   gallery: string[];
@@ -117,6 +118,11 @@ export const products: Product[] = [
     },
     variantBulkOffers: {
       Birch: { minQty: 50, unitPrice: 5.5 },
+    },
+    variantMinQuantity: {
+      Birch: 5,
+      Oak: 5,
+      Ash: 5,
     },
     outOfStockVariants: [],
     stockNote: "18 trailer loads of logs currently in stock.",

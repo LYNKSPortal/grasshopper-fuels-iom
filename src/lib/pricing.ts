@@ -31,6 +31,9 @@ export function getUnitPrice(
   if (!product) return null;
   if (product.outOfStockVariants?.includes(variantLabel)) return null;
 
+  const minQuantity = product.variantMinQuantity?.[variantLabel];
+  if (minQuantity && quantity < minQuantity) return null;
+
   const bulkOffer = product.variantBulkOffers?.[variantLabel];
   if (bulkOffer && quantity >= bulkOffer.minQty) {
     return bulkOffer.unitPrice;

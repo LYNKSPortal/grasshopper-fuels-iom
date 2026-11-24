@@ -57,21 +57,24 @@ function useVariantCart({
   variant,
   priceLabel,
   bulkOffer,
+  minQuantity,
 }: {
   productSlug: string;
   productName: string;
   variant: string;
   priceLabel?: string;
   bulkOffer?: CartBulkOffer;
+  minQuantity?: number;
 }) {
+  const min = minQuantity ?? 1;
   const key = `${productSlug}|${variant}`;
   const { items, addItem } = useCart();
   const cartItem = items.find((i) => i.key === key);
   const cartQuantity = cartItem?.quantity ?? 0;
-  const [quantityInput, setQuantityInput] = useState("1");
+  const [quantityInput, setQuantityInput] = useState(String(min));
   const [justAdded, setJustAdded] = useState(false);
 
-  const quantity = Math.min(99, Math.max(1, parseInt(quantityInput, 10) || 1));
+  const quantity = Math.min(99, Math.max(min, parseInt(quantityInput, 10) || min));
 
   function handleAdd() {
     addItem(
@@ -82,11 +85,12 @@ function useVariantCart({
         variantLabel: variant,
         priceLabel,
         bulkOffer,
+        minQuantity,
       },
       quantity
     );
     setJustAdded(true);
-    setQuantityInput("1");
+    setQuantityInput(String(min));
     window.setTimeout(() => setJustAdded(false), 1600);
   }
 
@@ -117,6 +121,7 @@ function QuantityAddControls({
   quantityInput,
   setQuantityInput,
   quantity,
+  minQuantity = 1,
   justAdded,
   onAdd,
   onQuantityChange,
@@ -126,6 +131,7 @@ function QuantityAddControls({
   quantityInput: string;
   setQuantityInput: (value: string) => void;
   quantity: number;
+  minQuantity?: number;
   justAdded: boolean;
   onAdd: () => void;
   onQuantityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -136,7 +142,7 @@ function QuantityAddControls({
       <div className="flex items-center gap-1.5 rounded-full border border-input p-1">
         <button
           type="button"
-          onClick={() => setQuantityInput(String(Math.max(1, quantity - 1)))}
+          onClick={() => setQuantityInput(String(Math.max(minQuantity, quantity - 1)))}
           aria-label={`Decrease quantity for ${variant}`}
           className="flex h-7 w-7 items-center justify-center rounded-full text-[#202e25] transition-colors hover:bg-muted"
         >
@@ -357,6 +363,7 @@ function ProductOrderCard({
                 priceLabel={product.variantPrices?.[variant]}
                 offerLabel={product.variantOffers?.[variant]}
                 bulkOffer={product.variantBulkOffers?.[variant]}
+                minQuantity={product.variantMinQuantity?.[variant]}
                 outOfStock={product.outOfStockVariants?.includes(variant)}
               />
             ))}
@@ -378,6 +385,7 @@ function VariantCard({
   const priceLabel = product.variantPrices?.[variant];
   const offerLabel = product.variantOffers?.[variant];
   const bulkOffer = product.variantBulkOffers?.[variant];
+  const minQuantity = product.variantMinQuantity?.[variant];
   const outOfStock = product.outOfStockVariants?.includes(variant);
   const cart = useVariantCart({
     productSlug: product.slug,
@@ -385,6 +393,7 @@ function VariantCard({
     variant,
     priceLabel,
     bulkOffer,
+    minQuantity,
   });
 
   return (
@@ -427,6 +436,11 @@ function VariantCard({
                 {offerLabel}
               </p>
             )}
+            {!outOfStock && minQuantity && minQuantity > 1 && (
+              <p className="text-xs font-semibold text-[#202e25]/50">
+                Minimum order: {minQuantity}
+              </p>
+            )}
             {!outOfStock && cart.cartQuantity > 0 && (
               <p className="text-xs font-medium text-[#202e25]/50">
                 {cart.cartQuantity} in basket
@@ -441,6 +455,7 @@ function VariantCard({
                 quantityInput={cart.quantityInput}
                 setQuantityInput={cart.setQuantityInput}
                 quantity={cart.quantity}
+                minQuantity={minQuantity}
                 justAdded={cart.justAdded}
                 onAdd={cart.handleAdd}
                 onQuantityChange={cart.handleQuantityInputChange}
@@ -462,6 +477,7 @@ function VariantRow({
   priceLabel,
   offerLabel,
   bulkOffer,
+  minQuantity,
   outOfStock,
 }: {
   productSlug: string;
@@ -471,6 +487,7 @@ function VariantRow({
   priceLabel?: string;
   offerLabel?: string;
   bulkOffer?: CartBulkOffer;
+  minQuantity?: number;
   outOfStock?: boolean;
 }) {
   const cart = useVariantCart({
@@ -479,6 +496,7 @@ function VariantRow({
     variant,
     priceLabel,
     bulkOffer,
+    minQuantity,
   });
 
   return (
@@ -508,6 +526,11 @@ function VariantRow({
                   {offerLabel}
                 </p>
               )}
+              {minQuantity && minQuantity > 1 && (
+                <p className="mt-0.5 text-xs font-semibold text-[#202e25]/50">
+                  Minimum order: {minQuantity}
+                </p>
+              )}
             </>
           )}
           {!outOfStock && cart.cartQuantity > 0 && (
@@ -526,6 +549,7 @@ function VariantRow({
           quantityInput={cart.quantityInput}
           setQuantityInput={cart.setQuantityInput}
           quantity={cart.quantity}
+          minQuantity={minQuantity}
           justAdded={cart.justAdded}
           onAdd={cart.handleAdd}
           onQuantityChange={cart.handleQuantityInputChange}
