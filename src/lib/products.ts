@@ -1,5 +1,5 @@
 export type Product = {
-  slug: "kiln-dried-logs" | "coal" | "kindling";
+  slug: "gift-card" | "kiln-dried-logs" | "coal" | "kindling";
   name: string;
   shortDescription: string;
   benefit: string;
@@ -20,6 +20,77 @@ export type Product = {
 };
 
 export const products: Product[] = [
+  {
+    slug: "gift-card",
+    name: "Gift Card",
+    shortDescription:
+      "The perfect gift for anyone who loves a warm home. Redeemable against any Grasshopper Fuels order.",
+    benefit: "Delivered by email or post",
+    image: "/gift-card.png",
+    keywords: [
+      "gift card Isle of Man",
+      "firewood gift voucher",
+      "logs gift card Isle of Man",
+      "Grasshopper Fuels gift card",
+    ],
+    variants: ["£25", "£50", "£100", "£200", "£500"],
+    variantPrices: {
+      "£25": "£25",
+      "£50": "£50",
+      "£100": "£100",
+      "£200": "£200",
+      "£500": "£500",
+    },
+    outOfStockVariants: [],
+    gallery: ["gift-card"],
+    intro:
+      "A Grasshopper Fuels gift card is a simple, practical gift for friends, family, or neighbours across the Isle of Man. Choose an amount, check out online, and we will be in touch to arrange delivery of the gift card by email or post. Gift cards can be redeemed against any of our products, including kiln-dried logs, coal, kindling, and firelighters.",
+    benefits: [
+      {
+        title: "Any Occasion",
+        description:
+          "Ideal for birthdays, Christmas, housewarmings, or just helping someone keep the fire burning.",
+      },
+      {
+        title: "Flexible Amounts",
+        description:
+          "Choose from £25, £50, £100, £200, or £500 to suit any budget.",
+      },
+      {
+        title: "Redeemable Sitewide",
+        description:
+          "Gift cards can be used against any Grasshopper Fuels product or order.",
+      },
+      {
+        title: "Simple to Send",
+        description:
+          "Order online in a couple of minutes and we will arrange delivery of the card for you.",
+      },
+    ],
+    suitableUses: [
+      "Birthdays and Christmas presents",
+      "Housewarming gifts",
+      "Helping family members with winter fuel",
+      "Corporate or staff gifts",
+    ],
+    faqs: [
+      {
+        question: "How is the gift card delivered?",
+        answer:
+          "After you place your order we will be in touch to arrange delivery of the gift card by email or post, whichever you prefer.",
+      },
+      {
+        question: "What can the gift card be spent on?",
+        answer:
+          "Gift cards can be redeemed against any Grasshopper Fuels product, including kiln-dried logs, coal, kindling, and firelighters.",
+      },
+      {
+        question: "Do gift cards expire?",
+        answer:
+          "Please contact us if you have any questions about redeeming an older gift card and we will be happy to help.",
+      },
+    ],
+  },
   {
     slug: "kiln-dried-logs",
     name: "Kiln-Dried Logs",
