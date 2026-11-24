@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { getEffectiveUnitPrice, useCart, type CartItem } from "@/lib/cart-context";
+import { products } from "@/lib/products";
 
 export function BasketView() {
   const { items, setQuantity, removeItem, subtotal, hasUnpricedItems } =
@@ -97,6 +99,7 @@ function BasketLineItem({
   }
 
   const bulkActive = item.bulkOffer && item.quantity >= item.bulkOffer.minQty;
+  const image = products.find((p) => p.slug === item.productSlug)?.image;
 
   function commitQuantity(next: number) {
     onSetQuantity(item.key, Math.min(99, Math.max(1, next)));
@@ -119,7 +122,18 @@ function BasketLineItem({
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 p-6">
-      <div>
+      <div className="flex items-center gap-4">
+        {image && (
+          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-[#f7faf9]">
+            <Image
+              src={image}
+              alt={`${item.productName} – ${item.variantLabel}`}
+              fill
+              className="object-cover"
+            />
+          </div>
+        )}
+        <div>
         <p className="text-sm font-bold text-[#202e25]">{item.productName}</p>
         <p className="text-sm text-[#202e25]/60">{item.variantLabel}</p>
         <p className="mt-1 text-xs font-semibold text-[#18af8a]">
@@ -133,6 +147,7 @@ function BasketLineItem({
         <p className="mt-1 text-xs font-medium text-[#202e25]/50">
           Line total: £{(getEffectiveUnitPrice(item) * item.quantity).toFixed(2)}
         </p>
+        </div>
       </div>
 
       <div className="flex items-center gap-3">
