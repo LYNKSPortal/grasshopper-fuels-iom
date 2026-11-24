@@ -42,6 +42,7 @@ export async function POST(request: NextRequest) {
   }
 
   let amountToCollect: string | null = null;
+  let pricedItems: PricedCartItem[] | undefined;
   if (Array.isArray(body.items)) {
     const items: PricedCartItem[] = body.items
       .filter(
@@ -59,6 +60,7 @@ export async function POST(request: NextRequest) {
     if (allPriced && amount > 0) {
       amountToCollect = amount.toFixed(2);
     }
+    pricedItems = items;
   }
 
   const order = await createOrder({
@@ -67,6 +69,7 @@ export async function POST(request: NextRequest) {
     email: body.email,
     phone: body.phone,
     order: body.order,
+    items: pricedItems,
     address: body.address,
     message: body.message,
     amountToCollect,

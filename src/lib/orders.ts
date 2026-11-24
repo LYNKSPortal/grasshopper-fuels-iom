@@ -6,6 +6,7 @@ import type {
   EmailType,
   NewOrderInput,
   Order,
+  OrderItem,
   OrderStatus,
   PaymentStatus,
   StatusNote,
@@ -24,6 +25,7 @@ type OrderRow = {
   email: string;
   phone: string;
   order_summary: string;
+  items: OrderItem[] | null;
   address: string;
   message: string;
   payment_status: PaymentStatus;
@@ -60,6 +62,7 @@ function toOrder(row: OrderRow, notes: StatusNoteRow[], emails: EmailLogRow[] = 
     email: row.email,
     phone: row.phone,
     order: row.order_summary,
+    items: row.items ?? [],
     address: row.address,
     message: row.message,
     statusNotes: notes.map(toStatusNote),
@@ -208,8 +211,8 @@ export async function createOrder(input: NewOrderInput): Promise<Order> {
   const id = randomUUID();
   const { rows } = await query<OrderRow>(
     `INSERT INTO orders
-      (id, first_name, last_name, email, phone, order_summary, address, message, amount_to_collect)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      (id, first_name, last_name, email, phone, order_summary, items, address, message, amount_to_collect)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
      RETURNING *`,
     [
       id,
@@ -218,6 +221,7 @@ export async function createOrder(input: NewOrderInput): Promise<Order> {
       input.email,
       input.phone,
       input.order,
+      input.items && input.items.length > 0 ? JSON.stringify(input.items) : null,
       input.address,
       input.message,
       input.amountToCollect,

@@ -32,6 +32,11 @@ CREATE INDEX IF NOT EXISTS orders_payment_job_reference_idx
 -- legacy JSON file store, since orders.id is now a real UUID.
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS legacy_id TEXT;
 
+-- Structured cart items (productSlug/variantLabel/quantity) submitted at
+-- checkout. order_summary remains the human-readable display string; this
+-- powers features like the admin Gift Cards view without parsing text.
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS items JSONB;
+
 CREATE UNIQUE INDEX IF NOT EXISTS orders_legacy_id_idx
   ON orders (legacy_id) WHERE legacy_id IS NOT NULL;
 

@@ -20,6 +20,12 @@ export type EmailLog = {
   createdAt: string;
 };
 
+export type OrderItem = {
+  productSlug: string;
+  variantLabel: string;
+  quantity: number;
+};
+
 export type Order = {
   id: string;
   createdAt: string;
@@ -29,6 +35,7 @@ export type Order = {
   email: string;
   phone: string;
   order: string;
+  items: OrderItem[];
   address: string;
   message: string;
   statusNotes: StatusNote[];
@@ -49,7 +56,8 @@ export type NewOrderInput = Omit<
   | "paymentJobReference"
   | "paymentReference"
   | "emailLogs"
->;
+  | "items"
+> & { items?: OrderItem[] };
 
 export type Customer = {
   email: string;
