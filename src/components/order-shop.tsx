@@ -13,6 +13,10 @@ export function OrderShop({ products }: { products: Product[] }) {
   return (
     <div className="grid grid-cols-1 gap-8">
       {products.flatMap((product) => {
+        if (product.slug === "gift-card") {
+          return [<GiftCardOrderCard key={product.slug} product={product} />];
+        }
+
         const variants =
           product.variants && product.variants.length > 0
             ? product.variants
@@ -201,6 +205,108 @@ function OutOfStockBadge() {
     <span className="inline-flex items-center rounded-full bg-black/5 px-4 py-2 text-sm font-bold text-[#202e25]/40">
       Out of Stock
     </span>
+  );
+}
+
+function GiftCardOrderCard({ product }: { product: Product }) {
+  const amounts = product.variants ?? [];
+  const [selected, setSelected] = useState(amounts[0] ?? "");
+  const cart = useVariantCart({
+    productSlug: product.slug,
+    productName: product.name,
+    variant: selected,
+    priceLabel: product.variantPrices?.[selected],
+  });
+  const { items } = useCart();
+  const outOfStock = product.outOfStockVariants?.includes(selected);
+  const totalInBasket = (product.variants ?? []).reduce(
+    (sum, variant) => sum + (items.find((i) => i.key === `${product.slug}|${variant}`)?.quantity ?? 0),
+    0
+  );
+
+  return (
+    <div className="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm">
+      <div className="grid grid-cols-1 sm:grid-cols-[350px_1fr]">
+        <div className="relative aspect-square w-full">
+          <Image
+            src={product.image}
+            alt={`${product.name} – ${product.shortDescription}`}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div className="flex flex-col gap-1 p-6">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <h3 className="text-xl font-bold text-[#202e25]">
+                {product.name}
+              </h3>
+              <p className="mt-1 max-w-md text-sm text-[#202e25]/60">
+                {product.shortDescription}
+              </p>
+            </div>
+            <Link
+              href={`/products/${product.slug}`}
+              className="shrink-0 text-sm font-bold text-[#18af8a] underline underline-offset-4 hover:text-[#139775]"
+            >
+              View Details
+            </Link>
+          </div>
+
+          <div className="mt-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-[#202e25]/40">
+              Choose an amount
+            </p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {amounts.map((amount) => {
+                const amountOutOfStock = product.outOfStockVariants?.includes(amount);
+                return (
+                  <button
+                    key={amount}
+                    type="button"
+                    disabled={amountOutOfStock}
+                    onClick={() => setSelected(amount)}
+                    aria-pressed={selected === amount}
+                    className={cn(
+                      "inline-flex items-center rounded-full px-5 py-2 text-sm font-bold transition-colors",
+                      amountOutOfStock
+                        ? "cursor-not-allowed bg-black/5 text-[#202e25]/30"
+                        : selected === amount
+                          ? "bg-[#18af8a] text-white shadow-sm"
+                          : "border border-input text-[#202e25] hover:border-[#18af8a]/50 hover:text-[#18af8a]"
+                    )}
+                  >
+                    {amount}
+                  </button>
+                );
+              })}
+            </div>
+            {totalInBasket > 0 && (
+              <p className="mt-2 text-xs font-medium text-[#202e25]/50">
+                {totalInBasket} gift card{totalInBasket === 1 ? "" : "s"} in basket
+              </p>
+            )}
+          </div>
+
+          <div className="mt-3">
+            {outOfStock ? (
+              <OutOfStockBadge />
+            ) : (
+              <QuantityAddControls
+                variant={selected}
+                quantityInput={cart.quantityInput}
+                setQuantityInput={cart.setQuantityInput}
+                quantity={cart.quantity}
+                justAdded={cart.justAdded}
+                onAdd={cart.handleAdd}
+                onQuantityChange={cart.handleQuantityInputChange}
+                onQuantityBlur={cart.handleQuantityInputBlur}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
